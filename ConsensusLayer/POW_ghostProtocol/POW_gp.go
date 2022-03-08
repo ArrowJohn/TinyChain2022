@@ -33,7 +33,7 @@ func main() {
 		Transaction: General.Transaction{
 			Date: timestamp, From: "genesisTransaction", ID: "1",
 			Signature: General.CalculateHash(timestamp + "genesisTransaction" + "1" + "YY" + string(rune(20))),
-			To:        Addresses[1], Value: 1000,
+			To:        Addresses[1], Value: 2000,
 		},
 	}
 	transaction2.Hash = General.CalculateTranHash(unifyTransaction(transaction2))
