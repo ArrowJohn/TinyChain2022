@@ -1,0 +1,8 @@
+{   
+    "nodeId": "0f098f1cd03983c1411c736b97a05cc",
+    "pubhost": "127.0.0.1",
+    "privhost": "127.0.0.1",
+    "port": "3333",
+    "peers": ["localhost:8181", "localhost:8282"],
+    "heartbeat": "60m"
+}

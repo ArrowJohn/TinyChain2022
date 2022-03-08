@@ -1,0 +1,17 @@
+{
+    "Strategy":"local",
+    "addresses": [
+        {
+          "address": "db9cf6884b3983e488e4"
+          
+        },
+        {
+          "address": "5c24967295a450bb96e3"
+        },
+        {
+          "address": "2975f996c46085cfecf6"
+        }
+      ],
+    "transIndex": 2, 
+    "maximumDiffculty": 1
+  }

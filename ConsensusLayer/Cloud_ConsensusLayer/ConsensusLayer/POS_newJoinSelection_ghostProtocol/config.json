@@ -1,0 +1,21 @@
+{
+  "Strategy":"13.211.132.135:3333",
+  "PublicAdd":"18.223.20.193",
+  "PrivateAdd":"172.31.38.59",
+  "Port":"3000",
+  "ServerPort":"80",
+  "addresses": [
+      {
+        "address": "db9cf6884b3983e488e4"
+      },
+      {
+        "address": "5c24967295a450bb96e3"
+      },
+      {
+        "address": "2975f996c46085cfecf6"
+      },
+      {
+        "address": "6a013823e29483a098e3"
+      }
+    ]
+}

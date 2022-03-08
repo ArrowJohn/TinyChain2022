@@ -1,0 +1,705 @@
+2021/11/22 21:11:18 ---------- ! Log of bootnode ! ----------
+2021/11/22 21:11:18 Setting: NodeId is: 7e5a8a226675c98b31e8fe807b1737e6
+2021/11/22 21:11:18 Setting: Predefined Peers are: []
+2021/11/22 21:11:18 Setting: Ticker time is: 10m
+2021/11/22 21:11:18 Bootnode is listening on [::]:3333!
+2021/11/22 21:12:47 ---------- ! Log of bootnode ! ----------
+2021/11/22 21:12:47 Setting: NodeId is: 0f098f1cd03983c1411c736b97a05cc
+2021/11/22 21:12:47 Setting: Predefined Peers are: [localhost:8181 localhost:8282]
+2021/11/22 21:12:47 Setting: Ticker time is: 60m
+2021/11/22 21:12:47 Error: listen tcp :3333: bind: address already in use
+2021/11/22 21:12:55 ---------- ! Log of bootnode ! ----------
+2021/11/22 21:12:55 Setting: NodeId is: 6e123f4a9840d763c7ed65a0cc85fe16
+2021/11/22 21:12:55 Setting: Predefined Peers are: []
+2021/11/22 21:12:55 Setting: Ticker time is: 10m
+2021/11/22 21:12:55 Error: listen tcp :3333: bind: address already in use
+2021/11/22 23:22:24 ---------- ! Log of bootnode ! ----------
+2021/11/22 23:22:24 Setting: NodeId is: 282b6959b6a5956a1bafaaf6fde0726b
+2021/11/22 23:22:24 Setting: Predefined Peers are: []
+2021/11/22 23:22:24 Setting: Ticker time is: 10m
+2021/11/22 23:22:24 Bootnode is listening on [::]:3333!
+2021/11/23 10:37:35 Received Boostrap Request from localhost:8891.
+2021/11/23 10:37:35 Added new peer localhost:8891.
+2021/11/23 10:37:35 Updated peers list length is 1.
+2021/11/23 10:37:35 Getting peers list length 1.
+2021/11/23 10:37:35 content localhost:8891
+2021/11/23 10:37:35 Sent response to localhost:8891
+2021/11/30 16:36:12 ---------- ! Log of bootnode ! ----------
+2021/11/30 16:36:12 Setting: NodeId is: ac6ad9d48ccc74b7517dcd65cdf96885
+2021/11/30 16:36:12 Setting: Predefined Peers are: []
+2021/11/30 16:36:12 Setting: Ticker time is: 10m
+2021/11/30 16:36:12 Bootnode is listening on [::]:3333!
+2021/11/30 16:43:01 Received Boostrap Request from localhost:8891.
+2021/11/30 16:43:01 Added new peer localhost:8891.
+2021/11/30 16:43:01 Updated peers list length is 1.
+2021/11/30 16:43:01 Getting peers list length 1.
+2021/11/30 16:43:01 content localhost:8891
+2021/11/30 16:43:01 Sent response to localhost:8891
+2021/11/30 16:44:23 Received Boostrap Request from localhost:8891.
+2021/11/30 16:44:23 Peers already added
+2021/11/30 16:44:23 Getting peers list length 1.
+2021/11/30 16:44:23 content localhost:8891
+2021/11/30 16:44:23 Sent response to localhost:8891
+2021/11/30 16:44:45 Received Boostrap Request from localhost:8891.
+2021/11/30 16:44:45 Peers already added
+2021/11/30 16:44:45 Getting peers list length 1.
+2021/11/30 16:44:45 content localhost:8891
+2021/11/30 16:44:45 Sent response to localhost:8891
+2021/11/30 16:45:12 Received Boostrap Request from localhost:8892.
+2021/11/30 16:45:12 Added new peer localhost:8892.
+2021/11/30 16:45:12 Updated peers list length is 2.
+2021/11/30 16:45:12 Getting peers list length 2.
+2021/11/30 16:45:12 content localhost:8891,localhost:8892
+2021/11/30 16:45:12 Sent response to localhost:8892
+2021/12/07 16:45:27 ---------- ! Log of bootnode ! ----------
+2021/12/07 16:45:27 Please include the configuration file in command line argument, use flag -config=filename
+2021/12/07 16:45:27 open : no such file or directory
+2021/12/07 16:45:40 ---------- ! Log of bootnode ! ----------
+2021/12/07 16:45:40 Please include the configuration file in command line argument, use flag -config=filename
+2021/12/07 16:45:40 open easy_config: no such file or directory
+2021/12/07 16:45:45 ---------- ! Log of bootnode ! ----------
+2021/12/07 16:45:45 Setting: NodeId is: a3211e3bf0ef5c13b1088b32b64ddcb2
+2021/12/07 16:45:45 Setting: Predefined Peers are: []
+2021/12/07 16:45:45 Setting: Ticker time is: 10m
+2021/12/07 16:45:45 Bootnode is listening on [::]:3333!
+2021/12/07 16:46:00 ---------- ! Log of bootnode ! ----------
+2021/12/07 16:46:00 Setting: NodeId is: f231ef47fad44a0fa403adb0e0173e88
+2021/12/07 16:46:00 Setting: Predefined Peers are: []
+2021/12/07 16:46:00 Setting: Ticker time is: 10m
+2021/12/07 16:46:00 Bootnode is listening on [::]:3333!
+2021/12/07 16:48:52 Received Boostrap Request from localhost:8891.
+2021/12/07 16:48:52 Added new peer localhost:8891.
+2021/12/07 16:48:52 Updated peers list length is 1.
+2021/12/07 16:48:52 Getting peers list length 1.
+2021/12/07 16:48:52 content localhost:8891
+2021/12/07 16:48:52 Sent response to localhost:8891
+2021/12/07 16:49:00 Received Boostrap Request from localhost:8892.
+2021/12/07 16:49:00 Added new peer localhost:8892.
+2021/12/07 16:49:00 Updated peers list length is 2.
+2021/12/07 16:49:00 Getting peers list length 2.
+2021/12/07 16:49:00 content localhost:8891,localhost:8892
+2021/12/07 16:49:00 Sent response to localhost:8892
+2022/01/05 17:10:32 ---------- ! Log of bootnode ! ----------
+2022/01/05 17:10:32 Setting: NodeId is: ee580299a81ada4f18514ee85d73a147
+2022/01/05 17:10:32 Setting: Predefined Peers are: []
+2022/01/05 17:10:32 Setting: Ticker time is: 10m
+2022/01/05 17:10:32 Bootnode is listening on [::]:3333!
+2022/01/05 17:13:22 Received Boostrap Request from localhost:8891.
+2022/01/05 17:13:22 Added new peer localhost:8891.
+2022/01/05 17:13:22 Updated peers list length is 1.
+2022/01/05 17:13:22 Getting peers list length 1.
+2022/01/05 17:13:22 content localhost:8891
+2022/01/05 17:13:22 Sent response to localhost:8891
+2022/01/05 17:15:38 Received Boostrap Request from localhost:8892.
+2022/01/05 17:15:38 Added new peer localhost:8892.
+2022/01/05 17:15:38 Updated peers list length is 2.
+2022/01/05 17:15:38 Getting peers list length 2.
+2022/01/05 17:15:38 content localhost:8891,localhost:8892
+2022/01/05 17:15:38 Sent response to localhost:8892
+2022/01/05 17:21:41 Received Boostrap Request from localhost:8891.
+2022/01/05 17:21:41 Peers already added
+2022/01/05 17:21:41 Getting peers list length 2.
+2022/01/05 17:21:41 content localhost:8891,localhost:8892
+2022/01/05 17:21:41 Sent response to localhost:8891
+2022/01/05 17:23:23 Received Boostrap Request from localhost:8891.
+2022/01/05 17:23:23 Peers already added
+2022/01/05 17:23:23 Getting peers list length 2.
+2022/01/05 17:23:23 content localhost:8891,localhost:8892
+2022/01/05 17:23:23 Sent response to localhost:8891
+2022/01/05 17:23:28 Received Boostrap Request from localhost:8892.
+2022/01/05 17:23:28 Peers already added
+2022/01/05 17:23:28 Getting peers list length 2.
+2022/01/05 17:23:28 content localhost:8891,localhost:8892
+2022/01/05 17:23:28 Sent response to localhost:8892
+2022/01/05 18:08:59 Received Boostrap Request from localhost:8893.
+2022/01/05 18:08:59 Added new peer localhost:8893.
+2022/01/05 18:08:59 Updated peers list length is 3.
+2022/01/05 18:08:59 Getting peers list length 3.
+2022/01/05 18:08:59 content localhost:8891,localhost:8892,localhost:8893
+2022/01/05 18:08:59 Sent response to localhost:8893
+2022/01/07 09:59:44 ---------- ! Log of bootnode ! ----------
+2022/01/07 09:59:44 Setting: NodeId is: 8bd69ac05464b461ffabff21d30bf3bd
+2022/01/07 09:59:44 Setting: Predefined Peers are: []
+2022/01/07 09:59:44 Setting: Ticker time is: 10m
+2022/01/07 09:59:44 Bootnode is listening on [::]:3333!
+2022/01/07 10:08:49 Received Boostrap Request from localhost:8891.
+2022/01/07 10:08:49 Added new peer localhost:8891.
+2022/01/07 10:08:49 Updated peers list length is 1.
+2022/01/07 10:08:49 Getting peers list length 1.
+2022/01/07 10:08:49 content localhost:8891
+2022/01/07 10:08:49 Sent response to localhost:8891
+2022/01/07 10:09:14 Received Boostrap Request from localhost:8892.
+2022/01/07 10:09:14 Added new peer localhost:8892.
+2022/01/07 10:09:14 Updated peers list length is 2.
+2022/01/07 10:09:14 Getting peers list length 2.
+2022/01/07 10:09:14 content localhost:8891,localhost:8892
+2022/01/07 10:09:14 Sent response to localhost:8892
+2022/01/07 10:09:26 Received Boostrap Request from localhost:8893.
+2022/01/07 10:09:26 Added new peer localhost:8893.
+2022/01/07 10:09:26 Updated peers list length is 3.
+2022/01/07 10:09:26 Getting peers list length 3.
+2022/01/07 10:09:26 content localhost:8891,localhost:8892,localhost:8893
+2022/01/07 10:09:26 Sent response to localhost:8893
+2022/01/07 10:54:55 ---------- ! Log of bootnode ! ----------
+2022/01/07 10:54:55 Setting: NodeId is: 8a1171e395271e8ae2c5fb003e3fce22
+2022/01/07 10:54:55 Setting: Predefined Peers are: []
+2022/01/07 10:54:55 Setting: Ticker time is: 10m
+2022/01/07 10:54:55 Bootnode is listening on [::]:3333!
+2022/01/07 10:55:39 Received Boostrap Request from localhost:8891.
+2022/01/07 10:55:39 Added new peer localhost:8891.
+2022/01/07 10:55:39 Updated peers list length is 1.
+2022/01/07 10:55:39 Getting peers list length 1.
+2022/01/07 10:55:39 content localhost:8891
+2022/01/07 10:55:39 Sent response to localhost:8891
+2022/01/07 10:55:56 Received Boostrap Request from localhost:8892.
+2022/01/07 10:55:56 Added new peer localhost:8892.
+2022/01/07 10:55:56 Updated peers list length is 2.
+2022/01/07 10:55:56 Getting peers list length 2.
+2022/01/07 10:55:56 content localhost:8891,localhost:8892
+2022/01/07 10:55:56 Sent response to localhost:8892
+2022/01/07 10:56:05 Received Boostrap Request from localhost:8893.
+2022/01/07 10:56:05 Added new peer localhost:8893.
+2022/01/07 10:56:05 Updated peers list length is 3.
+2022/01/07 10:56:05 Getting peers list length 3.
+2022/01/07 10:56:05 content localhost:8891,localhost:8892,localhost:8893
+2022/01/07 10:56:05 Sent response to localhost:8893
+2022/01/11 10:12:12 ---------- ! Log of bootnode ! ----------
+2022/01/11 10:12:12 Setting: NodeId is: 98ab462b422580ade5ddd7b32ea31d09
+2022/01/11 10:12:12 Setting: Predefined Peers are: []
+2022/01/11 10:12:12 Setting: Ticker time is: 10m
+2022/01/11 10:12:12 Bootnode is listening on [::]:3333!
+2022/01/11 10:12:53 Received Boostrap Request from localhost:8891.
+2022/01/11 10:12:53 Added new peer localhost:8891.
+2022/01/11 10:12:53 Updated peers list length is 1.
+2022/01/11 10:12:53 Getting peers list length 1.
+2022/01/11 10:12:53 content localhost:8891
+2022/01/11 10:12:53 Sent response to localhost:8891
+2022/01/11 10:18:51 Received Boostrap Request from localhost:8891.
+2022/01/11 10:18:51 Peers already added
+2022/01/11 10:18:51 Getting peers list length 1.
+2022/01/11 10:18:51 content localhost:8891
+2022/01/11 10:18:51 Sent response to localhost:8891
+2022/01/11 10:23:40 Received Boostrap Request from localhost:8891.
+2022/01/11 10:23:40 Peers already added
+2022/01/11 10:23:40 Getting peers list length 1.
+2022/01/11 10:23:40 content localhost:8891
+2022/01/11 10:23:40 Sent response to localhost:8891
+2022/01/11 10:25:00 Received Boostrap Request from localhost:8891.
+2022/01/11 10:25:00 Peers already added
+2022/01/11 10:25:00 Getting peers list length 1.
+2022/01/11 10:25:00 content localhost:8891
+2022/01/11 10:25:00 Sent response to localhost:8891
+2022/01/11 10:26:11 Received Boostrap Request from localhost:8891.
+2022/01/11 10:26:11 Peers already added
+2022/01/11 10:26:11 Getting peers list length 1.
+2022/01/11 10:26:11 content localhost:8891
+2022/01/11 10:26:11 Sent response to localhost:8891
+2022/01/11 10:26:49 Received Boostrap Request from localhost:8891.
+2022/01/11 10:26:49 Peers already added
+2022/01/11 10:26:49 Getting peers list length 1.
+2022/01/11 10:26:49 content localhost:8891
+2022/01/11 10:26:49 Sent response to localhost:8891
+2022/01/11 10:27:39 Received Boostrap Request from localhost:8891.
+2022/01/11 10:27:39 Peers already added
+2022/01/11 10:27:39 Getting peers list length 1.
+2022/01/11 10:27:39 content localhost:8891
+2022/01/11 10:27:39 Sent response to localhost:8891
+2022/01/11 10:29:42 Received Boostrap Request from localhost:8891.
+2022/01/11 10:29:42 Peers already added
+2022/01/11 10:29:42 Getting peers list length 1.
+2022/01/11 10:29:42 content localhost:8891
+2022/01/11 10:29:42 Sent response to localhost:8891
+2022/01/11 10:37:19 Received Boostrap Request from localhost:8891.
+2022/01/11 10:37:19 Peers already added
+2022/01/11 10:37:19 Getting peers list length 1.
+2022/01/11 10:37:19 content localhost:8891
+2022/01/11 10:37:19 Sent response to localhost:8891
+2022/01/11 10:41:14 Received Boostrap Request from localhost:8891.
+2022/01/11 10:41:14 Peers already added
+2022/01/11 10:41:14 Getting peers list length 1.
+2022/01/11 10:41:14 content localhost:8891
+2022/01/11 10:41:14 Sent response to localhost:8891
+2022/01/11 10:43:48 Received Boostrap Request from localhost:8891.
+2022/01/11 10:43:48 Peers already added
+2022/01/11 10:43:48 Getting peers list length 1.
+2022/01/11 10:43:48 content localhost:8891
+2022/01/11 10:43:48 Sent response to localhost:8891
+2022/01/11 10:55:01 Received Boostrap Request from localhost:8891.
+2022/01/11 10:55:01 Peers already added
+2022/01/11 10:55:01 Getting peers list length 1.
+2022/01/11 10:55:01 content localhost:8891
+2022/01/11 10:55:01 Sent response to localhost:8891
+2022/01/11 10:55:47 Received Boostrap Request from localhost:8891.
+2022/01/11 10:55:47 Peers already added
+2022/01/11 10:55:47 Getting peers list length 1.
+2022/01/11 10:55:47 content localhost:8891
+2022/01/11 10:55:47 Sent response to localhost:8891
+2022/01/11 11:00:56 Received Boostrap Request from localhost:8891.
+2022/01/11 11:00:56 Peers already added
+2022/01/11 11:00:56 Getting peers list length 1.
+2022/01/11 11:00:56 content localhost:8891
+2022/01/11 11:00:56 Sent response to localhost:8891
+2022/01/11 14:11:30 Received Boostrap Request from localhost:8891.
+2022/01/11 14:11:30 Peers already added
+2022/01/11 14:11:30 Getting peers list length 1.
+2022/01/11 14:11:30 content localhost:8891
+2022/01/11 14:11:30 Sent response to localhost:8891
+2022/01/11 17:11:12 Received Boostrap Request from localhost:8891.
+2022/01/11 17:11:12 Peers already added
+2022/01/11 17:11:12 Getting peers list length 1.
+2022/01/11 17:11:12 content localhost:8891
+2022/01/11 17:11:12 Sent response to localhost:8891
+2022/01/14 14:57:25 ---------- ! Log of bootnode ! ----------
+2022/01/14 14:57:25 Setting: NodeId is: 9da5d30095d781031f675118a9d11334
+2022/01/14 14:57:25 Setting: Predefined Peers are: []
+2022/01/14 14:57:25 Setting: Ticker time is: 10m
+2022/01/14 14:57:25 Bootnode is listening on [::]:3333!
+2022/01/14 15:37:00 Received Boostrap Request from localhost:8891.
+2022/01/14 15:37:00 Added new peer localhost:8891.
+2022/01/14 15:37:00 Updated peers list length is 1.
+2022/01/14 15:37:00 Getting peers list length 1.
+2022/01/14 15:37:00 content localhost:8891
+2022/01/14 15:37:00 Sent response to localhost:8891
+2022/01/17 10:48:30 ---------- ! Log of bootnode ! ----------
+2022/01/17 10:48:30 Setting: NodeId is: 13364327a230c86f72fbf88e93103334
+2022/01/17 10:48:30 Setting: Predefined Peers are: []
+2022/01/17 10:48:30 Setting: Ticker time is: 10m
+2022/01/17 10:48:30 Bootnode is listening on [::]:3333!
+2022/01/17 15:21:58 ---------- ! Log of bootnode ! ----------
+2022/01/17 15:21:58 Setting: NodeId is: dd4bdc4bface2f510671017095a5520c
+2022/01/17 15:21:58 Setting: Predefined Peers are: []
+2022/01/17 15:21:58 Setting: Ticker time is: 10m
+2022/01/17 15:21:58 Bootnode is listening on [::]:3333!
+2022/01/18 14:48:29 ---------- ! Log of bootnode ! ----------
+2022/01/18 14:48:29 Setting: NodeId is: 3d97c4579d7264eef65e8aa9e4c9ed42
+2022/01/18 14:48:29 Setting: Predefined Peers are: []
+2022/01/18 14:48:29 Setting: Ticker time is: 10m
+2022/01/18 14:48:29 Bootnode is listening on [::]:3333!
+2022/01/18 14:55:56 Received Boostrap Request from localhost:8891.
+2022/01/18 14:55:56 Added new peer localhost:8891.
+2022/01/18 14:55:56 Updated peers list length is 1.
+2022/01/18 14:55:56 Getting peers list length 1.
+2022/01/18 14:55:56 content localhost:8891
+2022/01/18 14:55:56 Sent response to localhost:8891
+2022/01/18 15:26:41 Received Boostrap Request from localhost:8891.
+2022/01/18 15:26:41 Peers already added
+2022/01/18 15:26:41 Getting peers list length 1.
+2022/01/18 15:26:41 content localhost:8891
+2022/01/18 15:26:41 Sent response to localhost:8891
+2022/01/18 15:28:41 Received Boostrap Request from localhost:8891.
+2022/01/18 15:28:41 Peers already added
+2022/01/18 15:28:41 Getting peers list length 1.
+2022/01/18 15:28:41 content localhost:8891
+2022/01/18 15:28:41 Sent response to localhost:8891
+2022/01/18 15:29:30 Received Boostrap Request from localhost:8891.
+2022/01/18 15:29:30 Peers already added
+2022/01/18 15:29:30 Getting peers list length 1.
+2022/01/18 15:29:30 content localhost:8891
+2022/01/18 15:29:30 Sent response to localhost:8891
+2022/01/18 16:13:46 Received Boostrap Request from localhost:8891.
+2022/01/18 16:13:46 Peers already added
+2022/01/18 16:13:46 Getting peers list length 1.
+2022/01/18 16:13:46 content localhost:8891
+2022/01/18 16:13:46 Sent response to localhost:8891
+2022/01/18 16:31:42 Received Boostrap Request from localhost:8891.
+2022/01/18 16:31:42 Peers already added
+2022/01/18 16:31:42 Getting peers list length 1.
+2022/01/18 16:31:42 content localhost:8891
+2022/01/18 16:31:42 Sent response to localhost:8891
+2022/01/18 16:33:52 Received Boostrap Request from localhost:8891.
+2022/01/18 16:33:52 Peers already added
+2022/01/18 16:33:52 Getting peers list length 1.
+2022/01/18 16:33:52 content localhost:8891
+2022/01/18 16:33:52 Sent response to localhost:8891
+2022/01/18 16:35:36 Received Boostrap Request from localhost:8891.
+2022/01/18 16:35:36 Peers already added
+2022/01/18 16:35:36 Getting peers list length 1.
+2022/01/18 16:35:36 content localhost:8891
+2022/01/18 16:35:36 Sent response to localhost:8891
+2022/01/18 16:47:56 Received Boostrap Request from localhost:8891.
+2022/01/18 16:47:56 Peers already added
+2022/01/18 16:47:56 Getting peers list length 1.
+2022/01/18 16:47:56 content localhost:8891
+2022/01/18 16:47:56 Sent response to localhost:8891
+2022/01/25 11:28:32 ---------- ! Log of bootnode ! ----------
+2022/01/25 11:28:32 Setting: NodeId is: 18d572299533711e0a572b4a7e070cfd
+2022/01/25 11:28:32 Setting: Predefined Peers are: []
+2022/01/25 11:28:32 Setting: Ticker time is: 10m
+2022/01/25 11:28:32 Bootnode is listening on [::]:3333!
+2022/01/25 11:28:56 Received Boostrap Request from localhost:8891.
+2022/01/25 11:28:56 Added new peer localhost:8891.
+2022/01/25 11:28:56 Updated peers list length is 1.
+2022/01/25 11:28:56 Getting peers list length 1.
+2022/01/25 11:28:56 content localhost:8891
+2022/01/25 11:28:56 Sent response to localhost:8891
+2022/01/25 14:44:06 Received Boostrap Request from localhost:8891.
+2022/01/25 14:44:06 Peers already added
+2022/01/25 14:44:06 Getting peers list length 1.
+2022/01/25 14:44:06 content localhost:8891
+2022/01/25 14:44:06 Sent response to localhost:8891
+2022/01/25 14:45:40 Received Boostrap Request from localhost:8891.
+2022/01/25 14:45:40 Peers already added
+2022/01/25 14:45:40 Getting peers list length 1.
+2022/01/25 14:45:40 content localhost:8891
+2022/01/25 14:45:40 Sent response to localhost:8891
+2022/01/25 14:49:33 Received Boostrap Request from localhost:8891.
+2022/01/25 14:49:33 Peers already added
+2022/01/25 14:49:33 Getting peers list length 1.
+2022/01/25 14:49:33 content localhost:8891
+2022/01/25 14:49:33 Sent response to localhost:8891
+2022/01/25 14:53:36 Received Boostrap Request from localhost:8891.
+2022/01/25 14:53:36 Peers already added
+2022/01/25 14:53:36 Getting peers list length 1.
+2022/01/25 14:53:36 content localhost:8891
+2022/01/25 14:53:36 Sent response to localhost:8891
+2022/01/25 14:55:59 Received Boostrap Request from localhost:8891.
+2022/01/25 14:55:59 Peers already added
+2022/01/25 14:55:59 Getting peers list length 1.
+2022/01/25 14:55:59 content localhost:8891
+2022/01/25 14:55:59 Sent response to localhost:8891
+2022/01/25 15:09:58 Received Boostrap Request from localhost:8891.
+2022/01/25 15:09:58 Peers already added
+2022/01/25 15:09:58 Getting peers list length 1.
+2022/01/25 15:09:58 content localhost:8891
+2022/01/25 15:09:58 Sent response to localhost:8891
+2022/01/25 15:23:44 EOF
+2022/01/25 15:23:44 Received a Non-Boostrap Request
+.
+2022/01/25 15:23:44 invalid character 'G' looking for beginning of value
+2022/01/25 15:23:44 Received a Non-Boostrap Request
+.
+2022/01/25 15:25:55 ---------- ! Log of bootnode ! ----------
+2022/01/25 15:25:55 Setting: NodeId is: 677d7a0f501e60187e5a090a49cc5b0e
+2022/01/25 15:25:55 Setting: Predefined Peers are: []
+2022/01/25 15:25:55 Setting: Ticker time is: 10m
+2022/01/25 15:25:55 Bootnode is listening on [::]:3333!
+2022/02/14 11:33:02 ---------- ! Log of bootnode ! ----------
+2022/02/14 11:33:02 Setting: NodeId is: 54cd765c33fee437141a9b141607acee
+2022/02/14 11:33:02 Setting: Predefined Peers are: []
+2022/02/14 11:33:02 Setting: Ticker time is: 10m
+2022/02/14 11:33:02 Bootnode is listening on [::]:3333!
+2022/02/14 11:38:18 Received Boostrap Request from localhost:8891.
+2022/02/14 11:38:18 Added new peer localhost:8891.
+2022/02/14 11:38:18 Updated peers list length is 1.
+2022/02/14 11:38:18 Getting peers list length 1.
+2022/02/14 11:38:18 content localhost:8891
+2022/02/14 11:38:18 Sent response to localhost:8891
+2022/02/14 11:41:29 Received Boostrap Request from localhost:8891.
+2022/02/14 11:41:29 Peers already added
+2022/02/14 11:41:29 Getting peers list length 1.
+2022/02/14 11:41:29 content localhost:8891
+2022/02/14 11:41:29 Sent response to localhost:8891
+2022/02/14 14:54:38 Received Boostrap Request from localhost:8891.
+2022/02/14 14:54:38 Peers already added
+2022/02/14 14:54:38 Getting peers list length 1.
+2022/02/14 14:54:38 content localhost:8891
+2022/02/14 14:54:38 Sent response to localhost:8891
+2022/02/21 17:06:22 ---------- ! Log of bootnode ! ----------
+2022/02/21 17:06:22 Setting: NodeId is: 0dbd6036fe7cc60ad79fb6fbac5dea8c
+2022/02/21 17:06:22 Setting: Predefined Peers are: []
+2022/02/21 17:06:22 Setting: Ticker time is: 10m
+2022/02/21 17:06:22 Bootnode is listening on [::]:3333!
+2022/02/21 17:33:31 Received Boostrap Request from localhost:8891.
+2022/02/21 17:33:31 Added new peer localhost:8891.
+2022/02/21 17:33:31 Updated peers list length is 1.
+2022/02/21 17:33:31 Getting peers list length 1.
+2022/02/21 17:33:31 content localhost:8891
+2022/02/21 17:33:31 Sent response to localhost:8891
+2022/02/21 17:50:45 Received Boostrap Request from localhost:8891.
+2022/02/21 17:50:45 Peers already added
+2022/02/21 17:50:45 Getting peers list length 1.
+2022/02/21 17:50:45 content localhost:8891
+2022/02/21 17:50:45 Sent response to localhost:8891
+2022/02/21 18:37:25 Received Boostrap Request from localhost:8891.
+2022/02/21 18:37:25 Peers already added
+2022/02/21 18:37:25 Getting peers list length 1.
+2022/02/21 18:37:25 content localhost:8891
+2022/02/21 18:37:25 Sent response to localhost:8891
+2022/02/21 18:40:13 Received Boostrap Request from localhost:8891.
+2022/02/21 18:40:13 Peers already added
+2022/02/21 18:40:13 Getting peers list length 1.
+2022/02/21 18:40:13 content localhost:8891
+2022/02/21 18:40:13 Sent response to localhost:8891
+2022/02/21 18:41:32 Received Boostrap Request from localhost:8891.
+2022/02/21 18:41:32 Peers already added
+2022/02/21 18:41:32 Getting peers list length 1.
+2022/02/21 18:41:32 content localhost:8891
+2022/02/21 18:41:32 Sent response to localhost:8891
+2022/02/22 09:52:41 ---------- ! Log of bootnode ! ----------
+2022/02/22 09:52:41 Setting: NodeId is: d006af2040240403517f2a81af266432
+2022/02/22 09:52:41 Setting: Predefined Peers are: []
+2022/02/22 09:52:41 Setting: Ticker time is: 10m
+2022/02/22 09:52:41 Bootnode is listening on [::]:3333!
+2022/02/22 09:52:51 Received Boostrap Request from localhost:8891.
+2022/02/22 09:52:51 Added new peer localhost:8891.
+2022/02/22 09:52:51 Updated peers list length is 1.
+2022/02/22 09:52:51 Getting peers list length 1.
+2022/02/22 09:52:51 content localhost:8891
+2022/02/22 09:52:51 Sent response to localhost:8891
+2022/02/23 09:59:05 ---------- ! Log of bootnode ! ----------
+2022/02/23 09:59:05 Setting: NodeId is: b8f3b5d329d1b25073c87ed02acab13d
+2022/02/23 09:59:05 Setting: Predefined Peers are: []
+2022/02/23 09:59:05 Setting: Ticker time is: 10m
+2022/02/23 09:59:05 Bootnode is listening on [::]:3333!
+2022/02/23 16:04:37 ---------- ! Log of bootnode ! ----------
+2022/02/23 16:04:37 Setting: NodeId is: df2d052d942c9ae403c6e0d692149b81
+2022/02/23 16:04:37 Setting: Predefined Peers are: []
+2022/02/23 16:04:37 Setting: Ticker time is: 10m
+2022/02/23 16:04:37 Bootnode is listening on [::]:3333!
+2022/02/23 16:06:40 Received Boostrap Request from localhost:8891.
+2022/02/23 16:06:40 Added new peer localhost:8891.
+2022/02/23 16:06:40 Updated peers list length is 1.
+2022/02/23 16:06:40 Getting peers list length 1.
+2022/02/23 16:06:40 content localhost:8891
+2022/02/23 16:06:40 Sent response to localhost:8891
+2022/02/23 16:19:00 Received Boostrap Request from localhost:8891.
+2022/02/23 16:19:00 Peers already added
+2022/02/23 16:19:00 Getting peers list length 1.
+2022/02/23 16:19:00 content localhost:8891
+2022/02/23 16:19:00 Sent response to localhost:8891
+2022/02/23 16:37:55 Received Boostrap Request from localhost:8891.
+2022/02/23 16:37:55 Peers already added
+2022/02/23 16:37:55 Getting peers list length 1.
+2022/02/23 16:37:55 content localhost:8891
+2022/02/23 16:37:55 Sent response to localhost:8891
+2022/02/23 17:04:22 Received Boostrap Request from localhost:8891.
+2022/02/23 17:04:22 Peers already added
+2022/02/23 17:04:22 Getting peers list length 1.
+2022/02/23 17:04:22 content localhost:8891
+2022/02/23 17:04:22 Sent response to localhost:8891
+2022/02/23 17:06:42 Received Boostrap Request from localhost:8891.
+2022/02/23 17:06:42 Peers already added
+2022/02/23 17:06:42 Getting peers list length 1.
+2022/02/23 17:06:42 content localhost:8891
+2022/02/23 17:06:42 Sent response to localhost:8891
+2022/02/23 17:30:50 Received Boostrap Request from localhost:8891.
+2022/02/23 17:30:50 Peers already added
+2022/02/23 17:30:50 Getting peers list length 1.
+2022/02/23 17:30:50 content localhost:8891
+2022/02/23 17:30:50 Sent response to localhost:8891
+2022/02/23 18:16:55 Received Boostrap Request from localhost:8891.
+2022/02/23 18:16:55 Peers already added
+2022/02/23 18:16:55 Getting peers list length 1.
+2022/02/23 18:16:55 content localhost:8891
+2022/02/23 18:16:55 Sent response to localhost:8891
+2022/02/23 18:17:43 Received Boostrap Request from localhost:8891.
+2022/02/23 18:17:43 Peers already added
+2022/02/23 18:17:43 Getting peers list length 1.
+2022/02/23 18:17:43 content localhost:8891
+2022/02/23 18:17:43 Sent response to localhost:8891
+2022/02/23 18:30:36 Received Boostrap Request from localhost:8891.
+2022/02/23 18:30:36 Peers already added
+2022/02/23 18:30:36 Getting peers list length 1.
+2022/02/23 18:30:36 content localhost:8891
+2022/02/23 18:30:36 Sent response to localhost:8891
+2022/02/23 18:30:57 Received Boostrap Request from localhost:8891.
+2022/02/23 18:30:57 Peers already added
+2022/02/23 18:30:57 Getting peers list length 1.
+2022/02/23 18:30:57 content localhost:8891
+2022/02/23 18:30:57 Sent response to localhost:8891
+2022/02/24 01:41:52 Received Boostrap Request from localhost:8891.
+2022/02/24 01:41:52 Peers already added
+2022/02/24 01:41:52 Getting peers list length 1.
+2022/02/24 01:41:52 content localhost:8891
+2022/02/24 01:41:52 Sent response to localhost:8891
+2022/02/24 01:43:02 Received Boostrap Request from localhost:8891.
+2022/02/24 01:43:02 Peers already added
+2022/02/24 01:43:02 Getting peers list length 1.
+2022/02/24 01:43:02 content localhost:8891
+2022/02/24 01:43:02 Sent response to localhost:8891
+2022/02/24 01:43:51 Received Boostrap Request from localhost:8891.
+2022/02/24 01:43:51 Peers already added
+2022/02/24 01:43:51 Getting peers list length 1.
+2022/02/24 01:43:51 content localhost:8891
+2022/02/24 01:43:51 Sent response to localhost:8891
+2022/02/24 01:45:21 Received Boostrap Request from localhost:8891.
+2022/02/24 01:45:21 Peers already added
+2022/02/24 01:45:21 Getting peers list length 1.
+2022/02/24 01:45:21 content localhost:8891
+2022/02/24 01:45:21 Sent response to localhost:8891
+2022/02/25 17:44:20 ---------- ! Log of bootnode ! ----------
+2022/02/25 17:44:20 Setting: NodeId is: b563cba8ee2a1d920d9bb9ba27f644b5
+2022/02/25 17:44:20 Setting: Predefined Peers are: []
+2022/02/25 17:44:20 Setting: Ticker time is: 10m
+2022/02/25 17:44:20 Bootnode is listening on [::]:3333!
+2022/02/25 17:45:20 Received Boostrap Request from localhost:8891.
+2022/02/25 17:45:20 Added new peer localhost:8891.
+2022/02/25 17:45:20 Updated peers list length is 1.
+2022/02/25 17:45:20 Getting peers list length 1.
+2022/02/25 17:45:20 content localhost:8891
+2022/02/25 17:45:20 Sent response to localhost:8891
+2022/02/25 17:47:19 Received Boostrap Request from localhost:8891.
+2022/02/25 17:47:19 Peers already added
+2022/02/25 17:47:19 Getting peers list length 1.
+2022/02/25 17:47:19 content localhost:8891
+2022/02/25 17:47:19 Sent response to localhost:8891
+2022/02/25 18:01:46 Received Boostrap Request from localhost:8891.
+2022/02/25 18:01:46 Peers already added
+2022/02/25 18:01:46 Getting peers list length 1.
+2022/02/25 18:01:46 content localhost:8891
+2022/02/25 18:01:46 Sent response to localhost:8891
+2022/02/28 10:10:31 ---------- ! Log of bootnode ! ----------
+2022/02/28 10:10:31 Setting: NodeId is: 5660ad7cff6681aab861d31b9fea9d67
+2022/02/28 10:10:31 Setting: Predefined Peers are: []
+2022/02/28 10:10:31 Setting: Ticker time is: 10m
+2022/02/28 10:10:31 Bootnode is listening on [::]:3333!
+2022/02/28 10:10:39 Received Boostrap Request from localhost:8891.
+2022/02/28 10:10:39 Added new peer localhost:8891.
+2022/02/28 10:10:39 Updated peers list length is 1.
+2022/02/28 10:10:39 Getting peers list length 1.
+2022/02/28 10:10:39 content localhost:8891
+2022/02/28 10:10:39 Sent response to localhost:8891
+2022/02/28 17:26:12 Received Boostrap Request from localhost:3000.
+2022/02/28 17:26:12 Added new peer localhost:3000.
+2022/02/28 17:26:12 Updated peers list length is 2.
+2022/02/28 17:26:12 Getting peers list length 2.
+2022/02/28 17:26:12 content localhost:8891,localhost:3000
+2022/02/28 17:26:12 Sent response to localhost:3000
+2022/02/28 17:39:14 Received Boostrap Request from localhost:3000.
+2022/02/28 17:39:14 Peers already added
+2022/02/28 17:39:14 Getting peers list length 2.
+2022/02/28 17:39:14 content localhost:8891,localhost:3000
+2022/02/28 17:39:14 Sent response to localhost:3000
+2022/02/28 17:45:22 Received Boostrap Request from localhost:3000.
+2022/02/28 17:45:22 Peers already added
+2022/02/28 17:45:22 Getting peers list length 2.
+2022/02/28 17:45:22 content localhost:8891,localhost:3000
+2022/02/28 17:45:22 Sent response to localhost:3000
+2022/02/28 18:11:03 Received Boostrap Request from localhost:3000.
+2022/02/28 18:11:03 Peers already added
+2022/02/28 18:11:03 Getting peers list length 2.
+2022/02/28 18:11:03 content localhost:8891,localhost:3000
+2022/02/28 18:11:03 Sent response to localhost:3000
+2022/02/28 18:11:24 Received Boostrap Request from localhost:3001.
+2022/02/28 18:11:24 Added new peer localhost:3001.
+2022/02/28 18:11:24 Updated peers list length is 3.
+2022/02/28 18:11:24 Getting peers list length 3.
+2022/02/28 18:11:24 content localhost:8891,localhost:3000,localhost:3001
+2022/02/28 18:11:24 Sent response to localhost:3001
+2022/02/28 18:13:29 Received Boostrap Request from localhost:3001.
+2022/02/28 18:13:29 Peers already added
+2022/02/28 18:13:29 Getting peers list length 3.
+2022/02/28 18:13:29 content localhost:8891,localhost:3000,localhost:3001
+2022/02/28 18:13:29 Sent response to localhost:3001
+2022/03/01 12:06:06 ---------- ! Log of bootnode ! ----------
+2022/03/01 12:06:06 Setting: NodeId is: 6e3edae2812327162aa6b98dfcd3bc4f
+2022/03/01 12:06:06 Setting: Predefined Peers are: []
+2022/03/01 12:06:06 Setting: Ticker time is: 10m
+2022/03/01 12:06:06 Bootnode is listening on [::]:3333!
+2022/03/01 12:20:45 Received Boostrap Request from localhost:3000.
+2022/03/01 12:20:45 Added new peer localhost:3000.
+2022/03/01 12:20:45 Updated peers list length is 1.
+2022/03/01 12:20:45 Getting peers list length 1.
+2022/03/01 12:20:45 content localhost:3000
+2022/03/01 12:20:45 Sent response to localhost:3000
+2022/03/01 12:23:06 Received Boostrap Request from localhost:3000.
+2022/03/01 12:23:06 Peers already added
+2022/03/01 12:23:06 Getting peers list length 1.
+2022/03/01 12:23:06 content localhost:3000
+2022/03/01 12:23:06 Sent response to localhost:3000
+2022/03/01 14:14:51 Received Boostrap Request from localhost:3000.
+2022/03/01 14:14:51 Peers already added
+2022/03/01 14:14:51 Getting peers list length 1.
+2022/03/01 14:14:51 content localhost:3000
+2022/03/01 14:14:51 Sent response to localhost:3000
+2022/03/01 14:27:01 Received Boostrap Request from localhost:3000.
+2022/03/01 14:27:01 Peers already added
+2022/03/01 14:27:01 Getting peers list length 1.
+2022/03/01 14:27:01 content localhost:3000
+2022/03/01 14:27:01 Sent response to localhost:3000
+2022/03/01 14:40:03 Received Boostrap Request from localhost:3000.
+2022/03/01 14:40:03 Peers already added
+2022/03/01 14:40:03 Getting peers list length 1.
+2022/03/01 14:40:03 content localhost:3000
+2022/03/01 14:40:03 Sent response to localhost:3000
+2022/03/01 14:58:49 Received Boostrap Request from localhost:3000.
+2022/03/01 14:58:49 Peers already added
+2022/03/01 14:58:49 Getting peers list length 1.
+2022/03/01 14:58:49 content localhost:3000
+2022/03/01 14:58:49 Sent response to localhost:3000
+2022/03/01 15:05:05 Received Boostrap Request from localhost:3000.
+2022/03/01 15:05:05 Peers already added
+2022/03/01 15:05:05 Getting peers list length 1.
+2022/03/01 15:05:05 content localhost:3000
+2022/03/01 15:05:05 Sent response to localhost:3000
+2022/03/01 15:05:39 Received Boostrap Request from localhost:3000.
+2022/03/01 15:05:39 Peers already added
+2022/03/01 15:05:39 Getting peers list length 1.
+2022/03/01 15:05:39 content localhost:3000
+2022/03/01 15:05:39 Sent response to localhost:3000
+2022/03/01 15:08:53 Received Boostrap Request from localhost:3000.
+2022/03/01 15:08:53 Peers already added
+2022/03/01 15:08:53 Getting peers list length 1.
+2022/03/01 15:08:53 content localhost:3000
+2022/03/01 15:08:53 Sent response to localhost:3000
+2022/03/01 15:19:41 Received Boostrap Request from localhost:3000.
+2022/03/01 15:19:41 Peers already added
+2022/03/01 15:19:41 Getting peers list length 1.
+2022/03/01 15:19:41 content localhost:3000
+2022/03/01 15:19:41 Sent response to localhost:3000
+2022/03/01 15:26:21 Received Boostrap Request from localhost:3000.
+2022/03/01 15:26:21 Peers already added
+2022/03/01 15:26:21 Getting peers list length 1.
+2022/03/01 15:26:21 content localhost:3000
+2022/03/01 15:26:21 Sent response to localhost:3000
+2022/03/01 15:29:50 Received Boostrap Request from localhost:3000.
+2022/03/01 15:29:50 Peers already added
+2022/03/01 15:29:50 Getting peers list length 1.
+2022/03/01 15:29:50 content localhost:3000
+2022/03/01 15:29:50 Sent response to localhost:3000
+2022/03/01 15:31:50 Received Boostrap Request from localhost:3000.
+2022/03/01 15:31:50 Peers already added
+2022/03/01 15:31:50 Getting peers list length 1.
+2022/03/01 15:31:50 content localhost:3000
+2022/03/01 15:31:50 Sent response to localhost:3000
+2022/03/01 15:52:57 Received Boostrap Request from localhost:3000.
+2022/03/01 15:52:57 Peers already added
+2022/03/01 15:52:57 Getting peers list length 1.
+2022/03/01 15:52:57 content localhost:3000
+2022/03/01 15:52:57 Sent response to localhost:3000
+2022/03/01 15:53:25 Received Boostrap Request from localhost:3000.
+2022/03/01 15:53:25 Peers already added
+2022/03/01 15:53:25 Getting peers list length 1.
+2022/03/01 15:53:25 content localhost:3000
+2022/03/01 15:53:25 Sent response to localhost:3000
+2022/03/01 15:57:05 Received Boostrap Request from localhost:3000.
+2022/03/01 15:57:05 Peers already added
+2022/03/01 15:57:05 Getting peers list length 1.
+2022/03/01 15:57:05 content localhost:3000
+2022/03/01 15:57:05 Sent response to localhost:3000
+2022/03/01 16:01:00 Received Boostrap Request from localhost:3000.
+2022/03/01 16:01:00 Peers already added
+2022/03/01 16:01:00 Getting peers list length 1.
+2022/03/01 16:01:00 content localhost:3000
+2022/03/01 16:01:00 Sent response to localhost:3000
+2022/03/01 16:14:48 Received Boostrap Request from localhost:3000.
+2022/03/01 16:14:48 Peers already added
+2022/03/01 16:14:48 Getting peers list length 1.
+2022/03/01 16:14:48 content localhost:3000
+2022/03/01 16:14:48 Sent response to localhost:3000
+2022/03/01 16:16:07 Received Boostrap Request from localhost:3000.
+2022/03/01 16:16:07 Peers already added
+2022/03/01 16:16:07 Getting peers list length 1.
+2022/03/01 16:16:07 content localhost:3000
+2022/03/01 16:16:07 Sent response to localhost:3000
+2022/03/01 16:20:56 Received Boostrap Request from localhost:3000.
+2022/03/01 16:20:56 Peers already added
+2022/03/01 16:20:56 Getting peers list length 1.
+2022/03/01 16:20:56 content localhost:3000
+2022/03/01 16:20:56 Sent response to localhost:3000
+2022/03/08 11:33:50 ---------- ! Log of bootnode ! ----------
+2022/03/08 11:33:50 Setting: NodeId is: d2cd9faedc4734f9d0592303de129b93
+2022/03/08 11:33:50 Setting: Predefined Peers are: []
+2022/03/08 11:33:50 Setting: Ticker time is: 10m
+2022/03/08 11:33:50 Bootnode is listening on [::]:3333!
+2022/03/08 11:34:08 Received Boostrap Request from localhost:3001.
+2022/03/08 11:34:08 Added new peer localhost:3001.
+2022/03/08 11:34:08 Updated peers list length is 1.
+2022/03/08 11:34:08 Getting peers list length 1.
+2022/03/08 11:34:08 content localhost:3001
+2022/03/08 11:34:08 Sent response to localhost:3001
+2022/03/08 11:37:44 Received Boostrap Request from localhost:3001.
+2022/03/08 11:37:44 Peers already added
+2022/03/08 11:37:44 Getting peers list length 1.
+2022/03/08 11:37:44 content localhost:3001
+2022/03/08 11:37:44 Sent response to localhost:3001

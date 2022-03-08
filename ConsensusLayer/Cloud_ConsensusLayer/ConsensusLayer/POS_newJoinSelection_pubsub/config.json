@@ -1,0 +1,18 @@
+{
+  "Strategy":"13.55.154.59",
+  "PublicAdd": "18.223.20.193",
+  "ServerPort":"80",
+  "PoolLimit":5,
+  "addresses": [
+      {
+        "address": "db9cf6884b3983e488e4"
+        
+      },
+      {
+        "address": "5c24967295a450bb96e3"
+      },
+      {
+        "address": "2975f996c46085cfecf6"
+      }
+    ]
+}
