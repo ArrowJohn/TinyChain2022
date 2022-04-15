@@ -555,7 +555,6 @@ func FindIndex(slice []int, val int) bool {
 //update the transaction based on the transactions stored in the block
 func updateTransaction(block Block) {
 	var counter []int
-	//takes O(n^3), not a good way
 	for i, tran := range transactions {
 		for _, storedTran := range block.Body.Transactions {
 			if tran.Signature == storedTran.Signature {
@@ -587,6 +586,13 @@ func unifyTransaction(transaction POWTransaction) General.Transaction {
 	data, _ := json.Marshal(transaction)
 	_ = json.Unmarshal(data, &transactionGeneral)
 	return transactionGeneral
+}
+
+func transTransaction(transaction General.Transaction) POWTransaction {
+	transactionPOW := POWTransaction{}
+	data, _ := json.Marshal(transaction)
+	_ = json.Unmarshal(data, &transactionPOW)
+	return transactionPOW
 }
 
 //handle msg
@@ -690,14 +696,12 @@ func msgHandler(msg message.JSONMessage) {
 func readConfig() {
 	jsonFile, err := os.Open("pow.json")
 	if err != nil {
-		fmt.Println(err)
 		jsonFile, _ = os.Open("ConsensusLayer/POW_ghostProtocol/pow.json")
 	}
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
 	var config Config
 	err = json.Unmarshal(byteValue, &config)
-	fmt.Println(config)
 	print(config.Addresses)
 	if err != nil {
 		return
@@ -721,4 +725,25 @@ func readConfig() {
 	Port = config.Port
 	ServerPort = config.ServerPort
 
+}
+
+func setRouter() {
+	r := mux.NewRouter()
+	powGp := POWGP{}
+	r.HandleFunc("/getBlockchainStatus", powGp.GetBlockchainStatus).Methods("GET")
+	r.HandleFunc("/getBlockchain", powGp.GetBlockchain).Methods("GET")
+	r.HandleFunc("/getPartBlockchain", powGp.GetPartBlockchain).Methods("GET")
+	r.HandleFunc("/getTransaction/{address}", powGp.GetUserTransactions).Methods("GET")
+	r.HandleFunc("/sendTransaction", powGp.CreateTransaction).Methods("POST")
+	r.HandleFunc("/getLastestBlock", powGp.GetLatestBlock).Methods("GET")
+	r.HandleFunc("/getBalance/{address}", powGp.GetBalance).Methods("GET")
+	r.HandleFunc("/getAllTransactions", powGp.GetAllTransactions).Methods("GET")
+	r.HandleFunc("/getTransactionByHash", powGp.GetTransByHash).Methods("GET")
+	r.HandleFunc("/getBlockByIndex", powGp.GetBlockByIndex).Methods("GET")
+	r.HandleFunc("/getCurrentTransactions", powGp.GetCurrentTrans).Methods("GET")
+
+	r.HandleFunc("/getDeclinedTransactions", getDeclinedTransactions).Methods("GET")
+	r.HandleFunc("/verifyTransaction/{blockIndex}", verifyTransaction).Methods("GET")
+	// Start server
+	log.Fatal(http.ListenAndServe(":"+ServerPort, r))
 }

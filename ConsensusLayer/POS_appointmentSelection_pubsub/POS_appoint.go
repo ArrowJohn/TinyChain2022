@@ -223,7 +223,7 @@ func main() {
 
 func readConfig() {
 	// Open our jsonFile
-	jsonFile, err := os.Open("config.json")
+	jsonFile, err := os.Open("PBFT.json")
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)

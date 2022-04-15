@@ -299,7 +299,7 @@ func readInput(input chan<- string) {
 }
 
 func readConfig() {
-	jsonFile, err := os.Open("config.json")
+	jsonFile, err := os.Open("PBFT.json")
 	if err != nil {
 		fmt.Println(err)
 	}

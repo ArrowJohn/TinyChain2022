@@ -8,16 +8,15 @@ import (
 	"fmt"
 	"github.com/cbergoon/merkletree"
 	"github.com/davecgh/go-spew/spew"
-	"github.com/gorilla/mux"
 	"log"
-	"net/http"
 	"strings"
 	"time"
 )
 
 func main() {
 	readConfig()
-	// current timestamp
+	General.Connect()
+	General.InitTransaction()
 	timestamp := General.CurrentTimestamp()
 	genesisBlock := Block{}
 	genesisBlockBody := BlockBody{}
@@ -41,7 +40,7 @@ func main() {
 	var genesisTransactions []POWTransaction
 	genesisTransactions = append(genesisTransactions, transaction1)
 	genesisTransactions = append(genesisTransactions, transaction2)
-	//genesisTransactions = append(genesisTransactions, transaction3)
+
 	//convert into content list so that we can use the merkle tree package
 	var genesisTransactionsContent = copyToContent(genesisTransactions)
 	tr, err := merkletree.NewTree(genesisTransactionsContent)
@@ -57,7 +56,6 @@ func main() {
 	genesisBlock = Block{
 		BasicBlock: General.BasicBlock{Timestamp: General.CurrentTimestamp(), Hash: calculateBlockHash(genesisBlock), Signature: General.CalculateHash("genesis")},
 		MerkleRoot: tr.MerkleRoot(), Difficulty: 1, Nonce: hex, Body: genesisBlockBody}
-	//genesisBlock = Block{0, t, calculateBlockHash(genesisBlock), "", tr.MerkleRoot(), 1, hex, "genesis", genesisBlockBody}
 
 	spew.Dump(genesisBlock)
 	Blockchain = append(Blockchain, genesisBlock)
@@ -134,25 +132,6 @@ func main() {
 		}
 	}()
 
-	// Init router
-	r := mux.NewRouter()
-
-	powGp := POWGP{}
-	r.HandleFunc("/getBlockchainStatus", powGp.GetBlockchainStatus).Methods("GET")
-	r.HandleFunc("/getBlockchain", powGp.GetBlockchain).Methods("GET")
-	r.HandleFunc("/getPartBlockchain", powGp.GetPartBlockchain).Methods("GET")
-	r.HandleFunc("/getTransaction/{address}", powGp.GetUserTransactions).Methods("GET")
-	r.HandleFunc("/sendTransaction", powGp.CreateTransaction).Methods("POST")
-	r.HandleFunc("/getLastestBlock", powGp.GetLatestBlock).Methods("GET")
-	r.HandleFunc("/getBalance/{address}", powGp.GetBalance).Methods("GET")
-	r.HandleFunc("/getAllTransactions", powGp.GetAllTransactions).Methods("GET")
-	r.HandleFunc("/getTransactionByHash", powGp.GetTransByHash).Methods("GET")
-	r.HandleFunc("/getBlockByIndex", powGp.GetBlockByIndex).Methods("GET")
-	r.HandleFunc("/getCurrentTransactions", powGp.GetCurrentTrans).Methods("GET")
-
-	r.HandleFunc("/getDeclinedTransactions", getDeclinedTransactions).Methods("GET")
-	r.HandleFunc("/verifyTransaction/{blockIndex}", verifyTransaction).Methods("GET")
-	// Start server
-	log.Fatal(http.ListenAndServe(":"+ServerPort, r))
+	setRouter()
 
 }

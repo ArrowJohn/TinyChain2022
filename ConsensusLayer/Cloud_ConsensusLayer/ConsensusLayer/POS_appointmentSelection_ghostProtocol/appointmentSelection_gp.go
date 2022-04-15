@@ -296,12 +296,12 @@ func readInput(input chan<- string) {
 
 func readConfig() {
 	// Open our jsonFile
-	jsonFile, err := os.Open("config.json")
+	jsonFile, err := os.Open("PBFT.json")
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("Successfully Opened config.json")
+	fmt.Println("Successfully Opened PBFT.json")
 	// defer the closing of our jsonFile so that we can parse it later on
 	// read our opened jsonFile as a byte array.
 	byteValue, _ := ioutil.ReadAll(jsonFile)

@@ -703,3 +703,43 @@
 2022/03/08 11:37:44 Getting peers list length 1.
 2022/03/08 11:37:44 content localhost:3001
 2022/03/08 11:37:44 Sent response to localhost:3001
+2022/03/22 14:25:58 ---------- ! Log of bootnode ! ----------
+2022/03/22 14:25:58 Setting: NodeId is: 4d0e9da145ee5a5cc60cad33480f15c5
+2022/03/22 14:25:58 Setting: Predefined Peers are: []
+2022/03/22 14:25:58 Setting: Ticker time is: 10m
+2022/03/22 14:25:58 Bootnode is listening on [::]:3333!
+2022/03/22 14:28:39 Received Boostrap Request from localhost:3001.
+2022/03/22 14:28:39 Added new peer localhost:3001.
+2022/03/22 14:28:39 Updated peers list length is 1.
+2022/03/22 14:28:39 Getting peers list length 1.
+2022/03/22 14:28:39 content localhost:3001
+2022/03/22 14:28:39 Sent response to localhost:3001
+2022/03/22 15:14:30 Received Boostrap Request from localhost:3001.
+2022/03/22 15:14:30 Peers already added
+2022/03/22 15:14:30 Getting peers list length 1.
+2022/03/22 15:14:30 content localhost:3001
+2022/03/22 15:14:30 Sent response to localhost:3001
+2022/04/11 15:02:52 ---------- ! Log of bootnode ! ----------
+2022/04/11 15:02:52 Please include the configuration file in command line argument, use flag -config=filename
+2022/04/11 15:02:52 open : no such file or directory
+2022/04/11 15:03:08 ---------- ! Log of bootnode ! ----------
+2022/04/11 15:03:08 Setting: NodeId is: 04ffe6eb5060558bfaee004b9756099c
+2022/04/11 15:03:08 Setting: Predefined Peers are: []
+2022/04/11 15:03:08 Setting: Ticker time is: 10m
+2022/04/11 15:03:08 Bootnode is listening on [::]:3333!
+2022/04/11 15:04:10 Received Boostrap Request from localhost:3001.
+2022/04/11 15:04:10 Added new peer localhost:3001.
+2022/04/11 15:04:10 Updated peers list length is 1.
+2022/04/11 15:04:10 Getting peers list length 1.
+2022/04/11 15:04:10 content localhost:3001
+2022/04/11 15:04:10 Sent response to localhost:3001
+2022/04/11 15:04:28 Received Boostrap Request from localhost:3001.
+2022/04/11 15:04:28 Peers already added
+2022/04/11 15:04:28 Getting peers list length 1.
+2022/04/11 15:04:28 content localhost:3001
+2022/04/11 15:04:28 Sent response to localhost:3001
+2022/04/11 15:05:39 Received Boostrap Request from localhost:3001.
+2022/04/11 15:05:39 Peers already added
+2022/04/11 15:05:39 Getting peers list length 1.
+2022/04/11 15:05:39 content localhost:3001
+2022/04/11 15:05:39 Sent response to localhost:3001

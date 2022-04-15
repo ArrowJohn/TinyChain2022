@@ -11,7 +11,7 @@ import (
 )
 
 type Server struct {
-	url string
+	url  string
 	node *Node
 }
 
@@ -23,14 +23,13 @@ type Config struct {
 	Strategy         string    `json:"Strategy"`
 	Addresses        []Address `json:"addresses"`
 	TransactionIndex int       `json:"transIndex"`
-	PrivateAdd		 string    `json:"PrivateAdd"`
-	PublicAdd		 string    `json:"PublicAdd"`
+	PrivateAdd       string    `json:"PrivateAdd"`
+	PublicAdd        string    `json:"PublicAdd"`
 }
 
 var Addresses []string
 var transIndex int
 var BootNodeAddress string
-
 
 func NewServer(nodeID string) *Server {
 	node := NewNode(nodeID)
@@ -112,7 +111,7 @@ func (server *Server) getReply(_ http.ResponseWriter, request *http.Request) {
 
 func send(url string, msg []byte) {
 	buff := bytes.NewBuffer(msg)
-	_, err := http.Post("http://" + url, "application/json", buff)
+	_, err := http.Post("http://"+url, "application/json", buff)
 	if err != nil {
 		return
 	}
@@ -120,7 +119,7 @@ func send(url string, msg []byte) {
 
 func ReadConfig() {
 	// Open our jsonFile
-	jsonFile, err := os.Open("config.json")
+	jsonFile, err := os.Open("PBFT.json")
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
