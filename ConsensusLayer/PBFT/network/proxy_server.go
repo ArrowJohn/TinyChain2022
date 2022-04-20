@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -36,7 +37,7 @@ func (server *Server) setRoute() {
 	r.HandleFunc("/getTransactionByHash", General.GetTransByHash).Methods("GET")
 	r.HandleFunc("/getBlockByIndex", General.GetBlockByIndex).Methods("GET")
 	r.HandleFunc("/getCurrentTransactions", General.GetCurrentTrans).Methods("GET")
-	r.HandleFunc("/req", server.getReq).Methods("POST")
+	r.HandleFunc("/sendTransaction", server.getReq).Methods("POST")
 	r.HandleFunc("/preprepare", server.getPrePrepare)
 	r.HandleFunc("/prepare", server.getPrepare)
 	r.HandleFunc("/commit", server.getCommit)
@@ -45,12 +46,21 @@ func (server *Server) setRoute() {
 	log.Fatal(http.ListenAndServe(server.url, r))
 }
 
-// 发送request调用接口
-func (server *Server) getReq(_ http.ResponseWriter, request *http.Request) {
+func (server *Server) getReq(w http.ResponseWriter, request *http.Request) {
 	var msg consensus.RequestMsg
-	_ = json.NewDecoder(request.Body).Decode(&msg)
+	var trans General.Transaction
+	_ = json.NewDecoder(request.Body).Decode(&trans)
+	if !General.CheckTransValid(trans) {
+		_ = json.NewEncoder(w).Encode(General.FormatResponse(500, "Something goes wrong please try again"))
+		return
+	}
+	msg.Timestamp, _ = strconv.ParseInt(trans.Date, 10, 64)
+	msg.ClientID = trans.From
+	op, _ := json.Marshal(trans)
+	msg.Operation = string(op)
 	fmt.Println(msg)
 	server.node.MsgEntrance <- &msg
+	_ = json.NewEncoder(w).Encode(General.FormatResponse(200, "transaction created successfully"))
 }
 
 func (server *Server) getPrePrepare(_ http.ResponseWriter, request *http.Request) {

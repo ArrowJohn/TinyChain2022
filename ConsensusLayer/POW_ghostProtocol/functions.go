@@ -206,7 +206,7 @@ func pickWinner() {
 		updateTransaction(newBlock)
 		basicBlock := newBlock.BasicBlock
 		basicBlock.Transactions = unifyTransactions(newBlock.Body.Transactions)
-		basicBlock.Signature = General.CalculateHash(General.CurrentTimestamp() + address)
+		basicBlock.Signature = General.CalculateHash(General.CurrentTimestamp() + basicBlock.PrevHash)
 		General.InsertBlock(basicBlock)
 		for _, items := range basicBlock.Transactions {
 			General.InsertTransaction(items)

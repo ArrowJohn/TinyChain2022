@@ -1,11 +1,11 @@
 package network
 
 import (
+	"TinyChain/ConsensusLayer/General"
 	"TinyChain/ConsensusLayer/PBFT/consensus"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"time"
 )
 
@@ -46,10 +46,14 @@ func NewNode(nodeID string, publicAddress string) *Node {
 	node := &Node{
 		NodeID: nodeID,
 		NodeTable: map[string]string{
-			"81": publicAdd + ":81",
-			"82": publicAdd + ":82",
-			"83": publicAdd + ":83",
-			"84": publicAdd + ":84",
+			//"81": publicAdd + ":81",
+			//"82": publicAdd + ":82",
+			//"83": publicAdd + ":83",
+			//"84": publicAdd + ":84",
+			"81": ":81",
+			"82": ":82",
+			"83": ":83",
+			"84": ":84",
 		},
 		View: &View{
 			ID:      viewID,
@@ -72,11 +76,8 @@ func NewNode(nodeID string, publicAddress string) *Node {
 		Alarm:       make(chan bool),
 	}
 
-	// 消息调度 把MsgEntrance的放进MsgDelivery
 	go node.dispatchMsg()
-	// 报警
 	go node.alarmToDispatcher()
-	// 消息接收
 	go node.resolveMsg()
 
 	return node
@@ -85,7 +86,6 @@ func NewNode(nodeID string, publicAddress string) *Node {
 func (node *Node) Broadcast(msg interface{}, path string) map[string]error {
 	errorMap := make(map[string]error)
 
-	//遍历所有要进行广播的节点
 	for nodeID, url := range node.NodeTable {
 		if nodeID == node.NodeID {
 			continue
@@ -96,11 +96,7 @@ func (node *Node) Broadcast(msg interface{}, path string) map[string]error {
 			errorMap[nodeID] = err
 			continue
 		}
-		print("发送 ")
-		println(url + path)
 		send(url+path, jsonMsg)
-		println("发送成功")
-		println(string(jsonMsg))
 	}
 
 	if len(errorMap) == 0 {
@@ -113,7 +109,17 @@ func (node *Node) Broadcast(msg interface{}, path string) map[string]error {
 func (node *Node) Reply(msg *consensus.ReplyMsg) error {
 	// Print all committed messages.
 	for _, value := range node.CommittedMsgs {
-		fmt.Printf("Committed value: %s, %d, %s, %d", value.ClientID, value.Timestamp, value.Operation, value.SequenceID)
+		//fmt.Printf("Committed value: %s, %d, %s, %d", value.ClientID, value.Timestamp, value.Operation, value.SequenceID)
+		var trans General.Transaction
+		var transList []General.Transaction
+		_ = json.Unmarshal([]byte(value.Operation), &trans)
+		fmt.Println(trans)
+		trans.Hash = General.CalculateTranHash(trans)
+		transList = append(transList, trans)
+		General.InsertNewTransaction(trans)
+		if !General.CheckTransInBlock(trans) {
+			General.InsertNewBlock(transList)
+		}
 	}
 	fmt.Print("\n")
 
@@ -128,16 +134,11 @@ func (node *Node) Reply(msg *consensus.ReplyMsg) error {
 	return nil
 }
 
-// GetReq 当主节点的state为nil的时候可调用
-// 主节点的共识启动程序
 func (node *Node) GetReq(reqMsg *consensus.RequestMsg) error {
 	LogMsg(reqMsg)
 
 	// Create a new state for the new consensus.
 	err := node.createStateForNewConsensus()
-	if node.CurrentState != nil {
-		println("创建了新的共识算法就不为空了")
-	}
 	if err != nil {
 		return err
 	}
@@ -221,18 +222,9 @@ func (node *Node) GetCommit(commitMsg *consensus.VoteMsg) error {
 		LogStage("Commit", true)
 		node.Reply(replyMsg)
 		LogStage("Reply", true)
-		println("完成验证")
-		//node.CurrentState = nil
-		//node.MsgBuffer = &MsgBuffer{
-		//	ReqMsgs:        make([]*consensus.RequestMsg, 0),
-		//	PrePrepareMsgs: make([]*consensus.PrePrepareMsg, 0),
-		//	PrepareMsgs:    make([]*consensus.VoteMsg, 0),
-		//	CommitMsgs:     make([]*consensus.VoteMsg, 0),
-		//}
-		//
-		//// Channels
-		//node.MsgEntrance = make(chan interface{})
-		//node.MsgDelivery = make(chan interface{})
+		node.CurrentState.CurrentStage = 0
+		println("Work done !!!")
+		//spew.Dump(node.CurrentState)
 	}
 
 	return nil
@@ -244,7 +236,7 @@ func (node *Node) GetReply(msg *consensus.ReplyMsg) {
 
 func (node *Node) createStateForNewConsensus() error {
 	// Check if there is an ongoing consensus process.
-	if node.CurrentState != nil {
+	if node.CurrentState != nil && node.CurrentState.CurrentStage != 0 {
 		return errors.New("another consensus is ongoing")
 	}
 
@@ -264,7 +256,6 @@ func (node *Node) createStateForNewConsensus() error {
 	return nil
 }
 
-// 消息调度
 func (node *Node) dispatchMsg() {
 	for {
 		select {
@@ -282,14 +273,12 @@ func (node *Node) dispatchMsg() {
 	}
 }
 
-// 消息调度具体实现 判断一下当前 entrance 里面的类型然后进行相应处理
 func (node *Node) routeMsg(msg interface{}) []error {
 	switch msg.(type) {
 	case *consensus.RequestMsg:
-		println("-------------- state --------------")
-		spew.Dump(node.CurrentState)
-		if node.CurrentState == nil {
-			println("当前状态为空，所以会发给 delivery")
+		println("Get a new request")
+		//spew.Dump(node.CurrentState)
+		if node.CurrentState == nil || node.CurrentState.CurrentStage == 0 {
 			// Copy buffered messages first.
 			msgs := make([]*consensus.RequestMsg, len(node.MsgBuffer.ReqMsgs))
 			copy(msgs, node.MsgBuffer.ReqMsgs)
@@ -300,11 +289,10 @@ func (node *Node) routeMsg(msg interface{}) []error {
 			// Send messages.
 			node.MsgDelivery <- msgs
 		} else {
-			println("不为空，只能先放在buffer里了")
 			node.MsgBuffer.ReqMsgs = append(node.MsgBuffer.ReqMsgs, msg.(*consensus.RequestMsg))
 		}
 	case *consensus.PrePrepareMsg:
-		if node.CurrentState == nil {
+		if node.CurrentState == nil || node.CurrentState.CurrentStage == 0 {
 			// Copy buffered messages first.
 			msgs := make([]*consensus.PrePrepareMsg, len(node.MsgBuffer.PrePrepareMsgs))
 			copy(msgs, node.MsgBuffer.PrePrepareMsgs)
@@ -447,7 +435,6 @@ func (node *Node) alarmToDispatcher() {
 	}
 }
 
-// 针对每一个requestMsg 启动算法
 func (node *Node) resolveRequestMsg(msgs []*consensus.RequestMsg) []error {
 	errs := make([]error, 0)
 	// Resolve messages

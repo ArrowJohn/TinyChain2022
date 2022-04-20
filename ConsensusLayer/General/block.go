@@ -47,6 +47,12 @@ func QueryBlockChain() []BasicBlock {
 	return blockChain
 }
 
+func QueryLastestBlock() BasicBlock {
+	var block BasicBlock
+	GormDb.Last(&block)
+	return block
+}
+
 func QueryBlockByIndex(index int) BasicBlock {
 	var basicBlock BasicBlock
 	GormDb.First(&basicBlock, index)
@@ -61,7 +67,7 @@ func GetStatus() Detail {
 	return detail
 }
 
-func QueryTransInBlock(index int) []Transaction {
+func QueryTransInBlockByIndex(index int) []Transaction {
 	var transactions string
 	var transactionList []Transaction
 	blockChain := QueryBlockChain()
@@ -74,8 +80,44 @@ func QueryTransInBlock(index int) []Transaction {
 	return transactionList
 }
 
+func QueryTransInBlock() []Transaction {
+	var transactionList []Transaction
+	blockChain := QueryBlockChain()
+	for _, basicBlock := range blockChain {
+		for _, transactions := range basicBlock.Transactions {
+			transactionList = append(transactionList, transactions)
+		}
+	}
+	return transactionList
+}
+
+func CheckTransInBlock(transaction Transaction) bool {
+	result, _ := json.Marshal(transaction)
+	transactionList := QueryTransInBlock()
+	for _, trans := range transactionList {
+		result1, _ := json.Marshal(trans)
+		if string(result) == string(result1) {
+			return true
+		}
+	}
+	return false
+}
+
 func InsertBlock(block BasicBlock) {
 	GormDb.Create(&block)
+}
+
+func InsertNewBlock(trans []Transaction) BasicBlock {
+	lastBlock := QueryLastestBlock()
+	var block BasicBlock
+	block.Index = lastBlock.Index + 1
+	block.Timestamp = CurrentTimestamp()
+	block.PrevHash = lastBlock.Hash
+	block.Signature = CalculateHash(block.Timestamp + block.PrevHash)
+	block.Transactions = trans
+	block.Hash = CalculateBlockHash(block)
+	InsertBlock(block)
+	return block
 }
 
 // InitBlock 根据 trans 初始化 block
@@ -91,9 +133,9 @@ func InitBlock() {
 		PrevHash:  "",
 		Signature: CalculateHash("genesis"),
 	}
+	block.Transactions = trans
 	block.Hash = CalculateBlockHash(block)
 	//transStr, _ := json.Marshal(trans)
 	//block.Transactions = string(transStr)
-	block.Transactions = trans
 	InsertBlock(block)
 }

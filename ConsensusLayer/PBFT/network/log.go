@@ -5,7 +5,6 @@ import (
 	"fmt"
 )
 
-// LogMsg 用来记录信息
 func LogMsg(msg interface{}) {
 	switch msg.(type) {
 	case *consensus.RequestMsg:
@@ -24,7 +23,6 @@ func LogMsg(msg interface{}) {
 	}
 }
 
-// LogStage 记录状态
 func LogStage(stage string, isDone bool) {
 	if isDone {
 		fmt.Printf("[STAGE-DONE] %s\n", stage)

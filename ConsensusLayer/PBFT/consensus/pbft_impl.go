@@ -122,7 +122,6 @@ func (state *State) Prepare(prepareMsg *VoteMsg) (*VoteMsg, error) {
 	return nil, nil
 }
 
-// Commit 确认阶段
 func (state *State) Commit(commitMsg *VoteMsg) (*ReplyMsg, *RequestMsg, error) {
 	if !state.verifyMsg(commitMsg.ViewID, commitMsg.SequenceID, commitMsg.Digest) {
 		return nil, nil, errors.New("commit message is corrupted")

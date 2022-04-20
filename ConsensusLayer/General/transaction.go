@@ -61,9 +61,32 @@ func QueryTranByHash(hash string) Transaction {
 	return transaction
 }
 
-// InsertTransaction 添加 transaction
+func QueryTranBySignature(signature string) Transaction {
+	var transaction Transaction
+	GormDb.First(&transaction, "signature=?", signature)
+	return transaction
+}
+
 func InsertTransaction(transaction Transaction) {
 	GormDb.Create(&transaction)
+}
+
+func InsertNewTransaction(transaction Transaction) {
+	var trans Transaction
+	GormDb.Last(&trans)
+	transaction.ID = trans.ID + 1
+	InsertTransaction(transaction)
+}
+
+func CheckTranExist(transaction Transaction) bool {
+	println("check")
+	transactions := QueryTrans()
+	for _, trans := range transactions {
+		if transaction.Hash == trans.Hash {
+			return true
+		}
+	}
+	return false
 }
 
 // InitTransaction 从库里面读取TransList, 没有的话就新建
@@ -98,4 +121,29 @@ func InitTransaction() []Transaction {
 	InsertTransaction(transaction3)
 	InitBlock()
 	return QueryTrans()
+}
+
+func GetBalanceFromTrans(address string) int {
+	var outBalance int
+	var inBalance int
+	for _, tran := range QueryTrans() {
+		if tran.From == address {
+			outBalance += tran.Value
+
+		}
+		if tran.To == address {
+			inBalance += tran.Value
+		}
+	}
+	return inBalance - outBalance
+}
+
+func CheckTransValid(transaction Transaction) bool {
+	if QueryTranBySignature(transaction.Signature).ID != 0 {
+		return false
+	}
+	if GetBalanceFromTrans(transaction.From) < transaction.Value {
+		return false
+	}
+	return true
 }
