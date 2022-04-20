@@ -1,13 +1,15 @@
 package network
 
 import (
+	"TinyChain/ConsensusLayer/General"
 	"TinyChain/ConsensusLayer/PBFT/consensus"
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"github.com/gorilla/mux"
+	"log"
 	"net/http"
-	"os"
+	"time"
 )
 
 type Server struct {
@@ -15,53 +17,39 @@ type Server struct {
 	node *Node
 }
 
-type Address struct {
-	Address string `json:"address"`
-}
-
-type Config struct {
-	Strategy         string    `json:"Strategy"`
-	Addresses        []Address `json:"addresses"`
-	TransactionIndex int       `json:"transIndex"`
-	PrivateAdd       string    `json:"PrivateAdd"`
-	PublicAdd        string    `json:"PublicAdd"`
-}
-
-var Addresses []string
-var transIndex int
-var BootNodeAddress string
-
-func NewServer(nodeID string) *Server {
-	node := NewNode(nodeID)
+func NewServer(nodeID string, publicAddress string) *Server {
+	node := NewNode(nodeID, publicAddress)
 	server := &Server{node.NodeTable[nodeID], node}
 	server.setRoute()
 	return server
 }
 
-func (server *Server) Start() {
-	fmt.Printf("Server will be started at %s...\n", server.url)
-	if err := http.ListenAndServe(server.url, nil); err != nil {
-		fmt.Println(err)
-		return
-	}
-}
-
 func (server *Server) setRoute() {
-	http.HandleFunc("/req", server.getReq)
-	http.HandleFunc("/preprepare", server.getPrePrepare)
-	http.HandleFunc("/prepare", server.getPrepare)
-	http.HandleFunc("/commit", server.getCommit)
-	http.HandleFunc("/reply", server.getReply)
+	r := mux.NewRouter()
+	r.HandleFunc("/getBlockchainStatus", General.GetBlockchainStatus).Methods("GET")
+	r.HandleFunc("/getBlockchain", General.GetBlockchain).Methods("GET")
+	r.HandleFunc("/getPartBlockchain", General.GetPartBlockchain).Methods("GET")
+	r.HandleFunc("/getAllTransactions", General.GetAllTransactions).Methods("GET")
+	r.HandleFunc("/getTransaction/{address}", General.GetUserTransactions).Methods("GET")
+	r.HandleFunc("/getLastestBlock", General.GetLatestBlock).Methods("GET")
+	r.HandleFunc("/getBalance/{address}", General.GetBalance).Methods("GET")
+	r.HandleFunc("/getTransactionByHash", General.GetTransByHash).Methods("GET")
+	r.HandleFunc("/getBlockByIndex", General.GetBlockByIndex).Methods("GET")
+	r.HandleFunc("/getCurrentTransactions", General.GetCurrentTrans).Methods("GET")
+	r.HandleFunc("/req", server.getReq).Methods("POST")
+	r.HandleFunc("/preprepare", server.getPrePrepare)
+	r.HandleFunc("/prepare", server.getPrepare)
+	r.HandleFunc("/commit", server.getCommit)
+	r.HandleFunc("/reply", server.getReply)
+	println("Server run at " + server.url)
+	log.Fatal(http.ListenAndServe(server.url, r))
 }
 
+// 发送request调用接口
 func (server *Server) getReq(_ http.ResponseWriter, request *http.Request) {
 	var msg consensus.RequestMsg
-	err := json.NewDecoder(request.Body).Decode(&msg)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	// request信息写进MsaEntrance
+	_ = json.NewDecoder(request.Body).Decode(&msg)
+	fmt.Println(msg)
 	server.node.MsgEntrance <- &msg
 }
 
@@ -111,45 +99,11 @@ func (server *Server) getReply(_ http.ResponseWriter, request *http.Request) {
 
 func send(url string, msg []byte) {
 	buff := bytes.NewBuffer(msg)
-	_, err := http.Post("http://"+url, "application/json", buff)
+	client := http.Client{Timeout: time.Second * 3}
+	resp, err := client.Post("http://"+url, "application/json", buff)
 	if err != nil {
 		return
 	}
-}
-
-func ReadConfig() {
-	// Open our jsonFile
-	jsonFile, err := os.Open("PBFT.json")
-	// if we os.Open returns an error then handle it
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println("Successfully Opened users.json")
-	// defer the closing of our jsonFile so that we can parse it later on
-	// read our opened jsonFile as a byte array.
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	// we initialize our Users array
-	var config Config
-
-	// we unmarshal our byteArray which contains our
-	// jsonFile's content into 'nodes' and 'transIndex' which we defined above
-	err = json.Unmarshal(byteValue, &config)
-	if err != nil {
-		return
-	}
-
-	for i := 0; i < len(config.Addresses); i++ {
-		Addresses = append(Addresses, config.Addresses[i].Address)
-	}
-	transIndex = config.TransactionIndex
-
-	fmt.Println(config)
-	if config.Strategy == "local" {
-		BootNodeAddress = "localhost:3333"
-	} else {
-		BootNodeAddress = config.Strategy
-	}
-
+	defer resp.Body.Close()
+	//_, err := http.Post("https://"+url, "application/json", buff)
 }

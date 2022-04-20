@@ -1,0 +1,9 @@
+{
+  "username": "admin",
+  "password": "12345678",
+  "ip": "elec5620.ctonlrsgkoqg.ap-northeast-1.rds.amazonaws.com",
+  "port": "3306",
+  "dbName": "tinyChain"
+}
+
+

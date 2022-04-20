@@ -57,7 +57,7 @@ type Config struct {
 	PublicAdd        string    `json:"PublicAdd"`
 	PrivateAdd       string    `json:"PrivateAdd"`
 	Port             string    `json:"Port"`
-	ServerPort       string    `json:"ServerPorts"`
+	ServerPort       string    `json:"ServerPort"`
 	Strategy         string    `json:"Strategy"`
 	Addresses        []Address `json:"addresses"`
 	TransactionIndex int       `json:"transIndex"`

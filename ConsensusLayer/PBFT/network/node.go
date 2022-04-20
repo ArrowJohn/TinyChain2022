@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"time"
 )
 
@@ -32,23 +33,27 @@ type View struct {
 	Primary string
 }
 
+var publicAdd string
+var nodeNo string
+
 const ResolvingTimeDuration = time.Millisecond * 5000 // 5 second.
 
-func NewNode(nodeID string) *Node {
+func NewNode(nodeID string, publicAddress string) *Node {
+	nodeNo = nodeID
+	publicAdd = publicAddress
 	const viewID = 10000000000 // temporary.
 
 	node := &Node{
-		// Hard-coded for test.
 		NodeID: nodeID,
 		NodeTable: map[string]string{
-			"1":  "localhost:1111",
-			"2":     "localhost:1112",
-			"3": "localhost:1113",
-			"4":    "localhost:1114",
+			"81": publicAdd + ":81",
+			"82": publicAdd + ":82",
+			"83": publicAdd + ":83",
+			"84": publicAdd + ":84",
 		},
 		View: &View{
 			ID:      viewID,
-			Primary: "1",
+			Primary: "81",
 		},
 
 		// Consensus-related struct
@@ -67,10 +72,10 @@ func NewNode(nodeID string) *Node {
 		Alarm:       make(chan bool),
 	}
 
+	// 消息调度 把MsgEntrance的放进MsgDelivery
+	go node.dispatchMsg()
 	// 报警
 	go node.alarmToDispatcher()
-	// 消息调度
-	go node.dispatchMsg()
 	// 消息接收
 	go node.resolveMsg()
 
@@ -91,8 +96,11 @@ func (node *Node) Broadcast(msg interface{}, path string) map[string]error {
 			errorMap[nodeID] = err
 			continue
 		}
-
+		print("发送 ")
+		println(url + path)
 		send(url+path, jsonMsg)
+		println("发送成功")
+		println(string(jsonMsg))
 	}
 
 	if len(errorMap) == 0 {
@@ -114,6 +122,7 @@ func (node *Node) Reply(msg *consensus.ReplyMsg) error {
 		return err
 	}
 
+	//spew.Dump(node.CurrentState)
 	send(node.NodeTable[node.View.Primary]+"/reply", jsonMsg)
 
 	return nil
@@ -126,6 +135,9 @@ func (node *Node) GetReq(reqMsg *consensus.RequestMsg) error {
 
 	// Create a new state for the new consensus.
 	err := node.createStateForNewConsensus()
+	if node.CurrentState != nil {
+		println("创建了新的共识算法就不为空了")
+	}
 	if err != nil {
 		return err
 	}
@@ -198,25 +210,29 @@ func (node *Node) GetPrepare(prepareMsg *consensus.VoteMsg) error {
 func (node *Node) GetCommit(commitMsg *consensus.VoteMsg) error {
 	LogMsg(commitMsg)
 
-	replyMsg, committedMsg, err := node.CurrentState.Commit(commitMsg)
-	if err != nil {
-		return err
-	}
+	replyMsg, committedMsg, _ := node.CurrentState.Commit(commitMsg)
 
 	if replyMsg != nil {
-		if committedMsg == nil {
-			return errors.New("committed message is nil, even though the reply message is not nil")
-		}
-
 		// Attach node ID to the message
 		replyMsg.NodeID = node.NodeID
-
 		// Save the last version of committed messages to node.
 		node.CommittedMsgs = append(node.CommittedMsgs, committedMsg)
 
 		LogStage("Commit", true)
 		node.Reply(replyMsg)
 		LogStage("Reply", true)
+		println("完成验证")
+		//node.CurrentState = nil
+		//node.MsgBuffer = &MsgBuffer{
+		//	ReqMsgs:        make([]*consensus.RequestMsg, 0),
+		//	PrePrepareMsgs: make([]*consensus.PrePrepareMsg, 0),
+		//	PrepareMsgs:    make([]*consensus.VoteMsg, 0),
+		//	CommitMsgs:     make([]*consensus.VoteMsg, 0),
+		//}
+		//
+		//// Channels
+		//node.MsgEntrance = make(chan interface{})
+		//node.MsgDelivery = make(chan interface{})
 	}
 
 	return nil
@@ -248,6 +264,7 @@ func (node *Node) createStateForNewConsensus() error {
 	return nil
 }
 
+// 消息调度
 func (node *Node) dispatchMsg() {
 	for {
 		select {
@@ -255,34 +272,35 @@ func (node *Node) dispatchMsg() {
 			err := node.routeMsg(msg)
 			if err != nil {
 				fmt.Println(err)
-				// TODO: send err to ErrorChannel
 			}
 		case <-node.Alarm:
 			err := node.routeMsgWhenAlarmed()
 			if err != nil {
 				fmt.Println(err)
-				// TODO: send err to ErrorChannel
 			}
 		}
 	}
 }
 
+// 消息调度具体实现 判断一下当前 entrance 里面的类型然后进行相应处理
 func (node *Node) routeMsg(msg interface{}) []error {
 	switch msg.(type) {
 	case *consensus.RequestMsg:
+		println("-------------- state --------------")
+		spew.Dump(node.CurrentState)
 		if node.CurrentState == nil {
+			println("当前状态为空，所以会发给 delivery")
 			// Copy buffered messages first.
 			msgs := make([]*consensus.RequestMsg, len(node.MsgBuffer.ReqMsgs))
 			copy(msgs, node.MsgBuffer.ReqMsgs)
-
 			// Append a newly arrived message.
 			msgs = append(msgs, msg.(*consensus.RequestMsg))
-
+			// Empty buffer
 			node.MsgBuffer.ReqMsgs = make([]*consensus.RequestMsg, 0)
-
 			// Send messages.
 			node.MsgDelivery <- msgs
 		} else {
+			println("不为空，只能先放在buffer里了")
 			node.MsgBuffer.ReqMsgs = append(node.MsgBuffer.ReqMsgs, msg.(*consensus.RequestMsg))
 		}
 	case *consensus.PrePrepareMsg:
@@ -386,7 +404,6 @@ func (node *Node) routeMsgWhenAlarmed() []error {
 
 func (node *Node) resolveMsg() {
 	for {
-		// 从dispatcher获取消息
 		msgs := <-node.MsgDelivery
 		switch msgs.(type) {
 		case []*consensus.RequestMsg:
@@ -395,16 +412,9 @@ func (node *Node) resolveMsg() {
 				for _, err := range errs {
 					fmt.Println(err)
 				}
-				// TODO: send err to ErrorChannel
 			}
 		case []*consensus.PrePrepareMsg:
-			errs := node.resolvePrePrepareMsg(msgs.([]*consensus.PrePrepareMsg))
-			if len(errs) != 0 {
-				for _, err := range errs {
-					fmt.Println(err)
-				}
-				// TODO: send err to ErrorChannel
-			}
+			node.resolvePrePrepareMsg(msgs.([]*consensus.PrePrepareMsg))
 		case []*consensus.VoteMsg:
 			voteMsgs := msgs.([]*consensus.VoteMsg)
 			if len(voteMsgs) == 0 {
@@ -417,7 +427,6 @@ func (node *Node) resolveMsg() {
 					for _, err := range errs {
 						fmt.Println(err)
 					}
-					// TODO: send err to ErrorChannel
 				}
 			} else if voteMsgs[0].MsgType == consensus.CommitMsg {
 				errs := node.resolveCommitMsg(voteMsgs)
@@ -425,7 +434,6 @@ func (node *Node) resolveMsg() {
 					for _, err := range errs {
 						fmt.Println(err)
 					}
-					// TODO: send err to ErrorChannel
 				}
 			}
 		}
@@ -439,9 +447,9 @@ func (node *Node) alarmToDispatcher() {
 	}
 }
 
+// 针对每一个requestMsg 启动算法
 func (node *Node) resolveRequestMsg(msgs []*consensus.RequestMsg) []error {
 	errs := make([]error, 0)
-
 	// Resolve messages
 	for _, reqMsg := range msgs {
 		err := node.GetReq(reqMsg)
@@ -449,11 +457,6 @@ func (node *Node) resolveRequestMsg(msgs []*consensus.RequestMsg) []error {
 			errs = append(errs, err)
 		}
 	}
-
-	if len(errs) != 0 {
-		return errs
-	}
-
 	return nil
 }
 

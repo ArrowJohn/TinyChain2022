@@ -17,48 +17,23 @@ func main() {
 	readConfig()
 	General.Connect()
 	General.InitTransaction()
-	timestamp := General.CurrentTimestamp()
-	genesisBlock := Block{}
-	genesisBlockBody := BlockBody{}
-	transaction1 := POWTransaction{
-		Transaction: General.Transaction{
-			Date: timestamp, From: "genesisTransaction", ID: "0",
-			Signature: General.CalculateHash(timestamp + "genesisTransaction" + "0" + "YY" + string(rune(20))),
-			To:        Addresses[0], Value: 1000,
-		},
-	}
-	transaction1.Hash = General.CalculateTranHash(unifyTransaction(transaction1))
-	transaction2 := POWTransaction{
-		Transaction: General.Transaction{
-			Date: timestamp, From: "genesisTransaction", ID: "1",
-			Signature: General.CalculateHash(timestamp + "genesisTransaction" + "1" + "YY" + string(rune(20))),
-			To:        Addresses[1], Value: 2000,
-		},
-	}
-	transaction2.Hash = General.CalculateTranHash(unifyTransaction(transaction2))
-	//declare new transactions list and add the genesis trans in
-	var genesisTransactions []POWTransaction
-	genesisTransactions = append(genesisTransactions, transaction1)
-	genesisTransactions = append(genesisTransactions, transaction2)
-
-	//convert into content list so that we can use the merkle tree package
-	var genesisTransactionsContent = copyToContent(genesisTransactions)
-	tr, err := merkletree.NewTree(genesisTransactionsContent)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	//BlockBody
-	genesisBlockBody = BlockBody{genesisTransactions}
 
 	//calculate the nonce based on difficulty 0
 	hex := fmt.Sprintf("%x", 0)
-	genesisBlock = Block{
-		BasicBlock: General.BasicBlock{Timestamp: General.CurrentTimestamp(), Hash: calculateBlockHash(genesisBlock), Signature: General.CalculateHash("genesis")},
-		MerkleRoot: tr.MerkleRoot(), Difficulty: 1, Nonce: hex, Body: genesisBlockBody}
-
-	spew.Dump(genesisBlock)
-	Blockchain = append(Blockchain, genesisBlock)
+	for _, items := range General.QueryBlockChain() {
+		POWTrans := transTransactionsToPOW(items.Transactions)
+		blockBody := BlockBody{POWTrans}
+		content := copyToContent(POWTrans)
+		tr, _ := merkletree.NewTree(content)
+		currentBlock := Block{
+			BasicBlock: items,
+			MerkleRoot: tr.MerkleRoot(),
+			Difficulty: 1,
+			Nonce:      hex,
+			Body:       blockBody,
+		}
+		Blockchain = append(Blockchain, currentBlock)
+	}
 
 	g = gossip.NewGossip(PublicAdd, PrivateAdd, Port, 3)
 	go g.ReceiveLoop()
@@ -85,10 +60,7 @@ func main() {
 
 	msg := message.JSONMessage{Type: messageType.Bootstrap, Body: PublicAdd + ":" + Port, Time: time.Now().String(), Signature: address}
 	//send address to the bootnode
-	err = g.SendDirect(msg, BootNodeAddress)
-	if err != nil {
-		return
-	}
+	_ = g.SendDirect(msg, BootNodeAddress)
 
 	go func() {
 		for {

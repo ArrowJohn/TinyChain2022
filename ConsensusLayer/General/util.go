@@ -43,7 +43,7 @@ func CalculateTransHash(transactions []Transaction) string {
 }
 
 func CalculateTranHash(transaction Transaction) string {
-	str := CalculateHash(transaction.Date + transaction.ID + transaction.From + transaction.To +
+	str := CalculateHash(transaction.Date + string(rune(transaction.ID)) + transaction.From + transaction.To +
 		string(rune(transaction.Value)) + transaction.Signature)
 	return CalculateHash(str)
 }

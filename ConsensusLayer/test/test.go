@@ -6,8 +6,7 @@ import (
 
 func main() {
 	General.Connect()
-	General.InitTransaction()
 	//General.InitTransaction()
-	//General.QueryTransInBlock(1)
-	//General.InitBlock(3)
+	//fmt.Println(General.QueryBlockChain())
+
 }

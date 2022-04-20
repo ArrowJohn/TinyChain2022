@@ -15,17 +15,18 @@ type State struct {
 }
 
 type MsgLogs struct {
-	ReqMsg        *RequestMsg
-	PrepareMsgs   map[string]*VoteMsg
-	CommitMsgs    map[string]*VoteMsg
+	ReqMsg      *RequestMsg
+	PrepareMsgs map[string]*VoteMsg
+	CommitMsgs  map[string]*VoteMsg
 }
 
 type Stage int
+
 const (
-	Idle        Stage = iota // Node is created successfully, but the consensus process is not started yet.
-	PrePrepared              // The ReqMsgs is processed successfully. The node is ready to head to the Prepare stage.
-	Prepared                 // Same with `prepared` stage explained in the original paper.
-	Committed                // Same with `committed-local` stage explained in the original paper.
+	Idle Stage = iota // Node is created successfully, but the consensus process is not started yet.
+	PrePrepared
+	Prepared
+	Committed
 )
 
 const f = 1
@@ -35,9 +36,9 @@ func CreateState(viewID int64, lastSequenceID int64) *State {
 	return &State{
 		ViewID: viewID,
 		MsgLogs: &MsgLogs{
-			ReqMsg:nil,
-			PrepareMsgs:make(map[string]*VoteMsg),
-			CommitMsgs:make(map[string]*VoteMsg),
+			ReqMsg:      nil,
+			PrepareMsgs: make(map[string]*VoteMsg),
+			CommitMsgs:  make(map[string]*VoteMsg),
 		},
 		LastSequenceID: lastSequenceID,
 		CurrentStage:   Idle,
@@ -71,9 +72,9 @@ func (state *State) StartConsensus(request *RequestMsg) (*PrePrepareMsg, error) 
 	// 进入预准备状态
 	state.CurrentStage = PrePrepared
 	return &PrePrepareMsg{
-		ViewID: state.ViewID,
+		ViewID:     state.ViewID,
 		SequenceID: sequenceID,
-		Digest: digest,
+		Digest:     digest,
 		RequestMsg: request,
 	}, nil
 }
@@ -97,7 +98,7 @@ func (state *State) PrePrepare(prePrepareMsg *PrePrepareMsg) (*VoteMsg, error) {
 }
 
 // Prepare 准备阶段
-func (state *State) Prepare(prepareMsg *VoteMsg) (*VoteMsg, error){
+func (state *State) Prepare(prepareMsg *VoteMsg) (*VoteMsg, error) {
 	if !state.verifyMsg(prepareMsg.ViewID, prepareMsg.SequenceID, prepareMsg.Digest) {
 		return nil, errors.New("prepare message is corrupted")
 	}
@@ -138,10 +139,10 @@ func (state *State) Commit(commitMsg *VoteMsg) (*ReplyMsg, *RequestMsg, error) {
 		state.CurrentStage = Committed
 
 		return &ReplyMsg{
-			ViewID: state.ViewID,
+			ViewID:    state.ViewID,
 			Timestamp: state.MsgLogs.ReqMsg.Timestamp,
-			ClientID: state.MsgLogs.ReqMsg.ClientID,
-			Result: result,
+			ClientID:  state.MsgLogs.ReqMsg.ClientID,
+			Result:    result,
 		}, state.MsgLogs.ReqMsg, nil
 	}
 
@@ -155,7 +156,6 @@ func (state *State) verifyMsg(viewID int64, sequenceID int64, digestGot string) 
 	}
 
 	// Check if the Primary sent fault sequence number. => Faulty primary.
-	// TODO: adopt upper/lower bound check.
 	if state.LastSequenceID != -1 {
 		if state.LastSequenceID >= sequenceID {
 			return false

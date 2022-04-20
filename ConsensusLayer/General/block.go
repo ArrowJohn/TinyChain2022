@@ -1,27 +1,39 @@
 package General
 
 import (
+	"database/sql/driver"
 	"encoding/json"
 	"errors"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type BlockBody struct {
-	Transactions []Transaction
-}
-
 type BasicBlock struct {
 	Index        int
-	Timestamp    string
+	Timestamp    string `gorm:"column:timeStamp"`
 	Hash         string
 	PrevHash     string
 	Signature    string
-	Transactions string
+	Transactions TransactionList
 }
 
+type TransactionList []Transaction
+
 func (basicBlock *BasicBlock) TableName() string {
-	return "chain"
+	return "blockChain"
+}
+
+func (transactionList *TransactionList) Scan(value interface{}) error {
+	bytesValue, ok := value.([]byte)
+	if !ok {
+		return errors.New(fmt.Sprint("Failed to unmarshal TransactionList value:", value))
+	}
+	return json.Unmarshal(bytesValue, transactionList)
+}
+
+func (transactionList TransactionList) Value() (driver.Value, error) {
+	result, _ := json.Marshal(transactionList)
+	return string(result), nil
 }
 
 func CalculateBlockHash(block BasicBlock) string {
@@ -29,35 +41,32 @@ func CalculateBlockHash(block BasicBlock) string {
 	return CalculateHash(record)
 }
 
-func QueryBlocks() []BasicBlock {
+func QueryBlockChain() []BasicBlock {
 	var blockChain []BasicBlock
-	var trans string
-	rows, e := db.Query("select * from chain")
-	if e == nil {
-		errors.New("query incur error")
-	}
-	for rows.Next() {
-		var block BasicBlock
-		_ = rows.Scan(
-			&block.Index, &block.Hash, &block.PrevHash, &block.Timestamp, &block.Signature, &trans)
-		blockChain = append(blockChain, block)
-	}
-	fmt.Println(blockChain)
+	GormDb.Find(&blockChain)
 	return blockChain
+}
+
+func QueryBlockByIndex(index int) BasicBlock {
+	var basicBlock BasicBlock
+	GormDb.First(&basicBlock, index)
+	return basicBlock
+}
+
+func GetStatus() Detail {
+	detail := Detail{
+		BlockChainHeight:  len(QueryBlockChain()),
+		TransactionNumber: len(QueryTrans()),
+	}
+	return detail
 }
 
 func QueryTransInBlock(index int) []Transaction {
 	var transactions string
 	var transactionList []Transaction
-	rows, e := db.Query("select * from chain")
-	if e == nil {
-		errors.New("query incur error")
-	}
-	for rows.Next() {
-		var block BasicBlock
-		_ = rows.Scan(
-			&block.Index, &block.Hash, &block.PrevHash, &block.Timestamp, &block.Signature, &transactions)
-		if block.Index == index {
+	blockChain := QueryBlockChain()
+	for _, basicBlock := range blockChain {
+		if basicBlock.Index == index {
 			listStrByte := []byte(transactions)
 			_ = json.Unmarshal(listStrByte, &transactionList)
 		}
@@ -71,10 +80,10 @@ func InsertBlock(block BasicBlock) {
 
 // InitBlock 根据 trans 初始化 block
 func InitBlock() {
-	ClearTable("chain")
+	ClearTable("blockchain")
 	fmt.Println("Init TinyChain")
 	timestamp := CurrentTimestamp()
-	var trans = QueryTran()
+	var trans = QueryTrans()
 	block := BasicBlock{
 		Index:     0,
 		Timestamp: timestamp,
@@ -83,7 +92,8 @@ func InitBlock() {
 		Signature: CalculateHash("genesis"),
 	}
 	block.Hash = CalculateBlockHash(block)
-	transStr, _ := json.Marshal(trans)
-	block.Transactions = string(transStr)
+	//transStr, _ := json.Marshal(trans)
+	//block.Transactions = string(transStr)
+	block.Transactions = trans
 	InsertBlock(block)
 }

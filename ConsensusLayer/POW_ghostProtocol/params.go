@@ -29,11 +29,11 @@ type BlockBody struct {
 	Transactions []POWTransaction
 }
 
-// Balance struct is a struct which stores the balance of the user address
-type Balance struct {
-	Address string `json:"address"`
-	Balance int    `json:"balance"`
-}
+//// Balance struct is a struct which stores the balance of the user address
+//type Balance struct {
+//	Address string `json:"address"`
+//	Balance int    `json:"balance"`
+//}
 
 // Config struct used to read json config
 type Config struct {
@@ -53,11 +53,11 @@ type Address struct {
 	Address string `json:"address"`
 }
 
-// Detail struct for some basic information of the chain
-type Detail struct {
-	BlockChainHeight  int `json:"blockChainHeight"`
-	TransactionNumber int `json:"TransactionNumber"`
-}
+//// Detail struct for some basic information of the chain
+//type Detail struct {
+//	BlockChainHeight  int `json:"blockChainHeight"`
+//	TransactionNumber int `json:"TransactionNumber"`
+//}
 
 //the initial difficulty will be 0(1 actually, since will be increased when generate the fist block)
 var difficulty = 0
@@ -70,7 +70,14 @@ var transIndex int
 
 var g *gossip.Gossip
 
-var messageType = message.MessageType{Bootstrap: "Bootstrap", LatestBlockChain: "LatestBlockChain", CurrentWinner: "CurrentWinner", NewTransaction: "NewTransaction", NewProposedBlock: "NewProposedBlock", NewJoinNode: "NewJoinNode", TEST: "TEST"}
+var messageType = message.MessageType{
+	Bootstrap:        "Bootstrap",
+	LatestBlockChain: "LatestBlockChain",
+	CurrentWinner:    "CurrentWinner",
+	NewTransaction:   "NewTransaction",
+	NewProposedBlock: "NewProposedBlock",
+	NewJoinNode:      "NewJoinNode",
+	TEST:             "TEST"}
 
 // Addresses : user addresses, the genesis node will grant them tokens
 var Addresses []string

@@ -71,178 +71,7 @@ func verifyTransaction(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func getAllTransFromChain() []POWTransaction {
-	var trans []POWTransaction
-	for _, block := range Blockchain {
-		trans = append(trans, block.Body.Transactions...)
-	}
-	return trans
-}
-
-func (pow *POWGP) GetAllTransactions(w http.ResponseWriter, _ *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	err := json.NewEncoder(w).Encode(getAllTransFromChain())
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetUserTransactions(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	vars := mux.Vars(r)
-	key := vars["address"]
-	var trans []POWTransaction
-	for _, block := range Blockchain {
-		for _, tran := range block.Body.Transactions {
-			if tran.From == key || tran.To == key {
-				trans = append(trans, tran)
-			}
-		}
-	}
-	err := json.NewEncoder(w).Encode(trans)
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetLatestBlock(w http.ResponseWriter, _ *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	err := json.NewEncoder(w).Encode(Blockchain[len(Blockchain)-1])
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetBlockchain(w http.ResponseWriter, _ *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	err := json.NewEncoder(w).Encode(Blockchain)
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetPartBlockchain(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	query := r.URL.Query()
-	pageIndex, _ := strconv.Atoi(query.Get("Index"))
-	pageSize, _ := strconv.Atoi(query.Get("Size"))
-	if pageIndex < 1 || (pageIndex-1)*pageSize >= len(Blockchain) {
-		err := json.NewEncoder(w).Encode(General.FormatResponse(500, "Something goes wrong please try again"))
-		if err != nil {
-			return
-		}
-		return
-	}
-	var BlockchainPart []Block
-	for i := (pageIndex - 1) * pageSize; i < pageIndex*pageSize; i++ {
-		if i > len(Blockchain)-1 {
-			break
-		}
-		BlockchainPart = append(BlockchainPart, Blockchain[i])
-	}
-	err := json.NewEncoder(w).Encode(BlockchainPart)
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetBlockByIndex(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	query := r.URL.Query()
-	index, _ := strconv.Atoi(query.Get("index"))
-	for _, block := range Blockchain {
-		if block.Index == index {
-			err := json.NewEncoder(w).Encode(block)
-			if err != nil {
-				return
-			}
-			return
-		}
-	}
-	err := json.NewEncoder(w).Encode(General.FormatResponse(500, "No such block"))
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetBlockchainStatus(w http.ResponseWriter, _ *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	detail := Detail{len(Blockchain), len(getAllTransFromChain())}
-	err := json.NewEncoder(w).Encode(detail)
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetBalance(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	vars := mux.Vars(r)
-	key := vars["address"]
-	var outBalance int
-	var inBalance int
-	for _, block := range Blockchain {
-		for _, tran := range block.Body.Transactions {
-			if tran.From == key {
-				outBalance += tran.Value
-
-			}
-			if tran.To == key {
-				inBalance += tran.Value
-			}
-		}
-
-	}
-	var balance Balance
-	balance.Address = key
-	balance.Balance = inBalance - outBalance
-	err := json.NewEncoder(w).Encode(balance)
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetTransByHash(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	query := r.URL.Query()
-	hash := query.Get("hash")
-	var trans []POWTransaction
-	for _, block := range Blockchain {
-		trans = append(trans, block.Body.Transactions...)
-	}
-	transaction := General.FindTransByHash(unifyTransactions(trans), hash)
-	if transaction.Date == "" {
-		err := json.NewEncoder(w).Encode(General.FormatResponse(500, "No such transaction"))
-		if err != nil {
-			return
-		}
-		return
-	}
-	err := json.NewEncoder(w).Encode(transaction)
-	if err != nil {
-		return
-	}
-
-}
-
-func (pow *POWGP) CreateTransaction(w http.ResponseWriter, r *http.Request) {
+func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("content-type", "application/json")
@@ -250,10 +79,7 @@ func (pow *POWGP) CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewDecoder(r.Body).Decode(&transaction)
 	_, found := General.FindTrans(unifyTransactions(transactions), unifyTransaction(transaction))
 	if found {
-		err := json.NewEncoder(w).Encode(General.FormatResponse(500, "Something goes wrong please try again"))
-		if err != nil {
-			return
-		}
+		_ = json.NewEncoder(w).Encode(General.FormatResponse(500, "Something goes wrong please try again"))
 		return
 	}
 	//append the transaction to the channel first then retrieve it later
@@ -261,39 +87,12 @@ func (pow *POWGP) CreateTransaction(w http.ResponseWriter, r *http.Request) {
 	transactions = append(transactions, transaction)
 	stdout <- "Receive user sent Transactions"
 	stdout <- transaction
-	output, err := json.Marshal(transaction)
-	if err != nil {
-		log.Fatal(err)
-	}
+	output, _ := json.Marshal(transaction)
 
 	//broadcast this transaction to the P2P network
 	broadcastBlockchain(string(output), messageType.NewTransaction)
 
-	err = json.NewEncoder(w).Encode(General.FormatResponse(200, "transaction created successfully"))
-	if err != nil {
-		return
-	}
-}
-
-func (pow *POWGP) GetCurrentTrans(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("content-type", "application/json")
-	query := r.URL.Query()
-	user := query.Get("address")
-	days, _ := strconv.Atoi(query.Get("days"))
-	var trans []POWTransaction
-	for _, block := range Blockchain {
-		for _, tran := range block.Body.Transactions {
-			if (tran.From == user || tran.To == user) && General.JudgeInDays(tran.Date, days) {
-				trans = append(trans, tran)
-			}
-		}
-	}
-	err := json.NewEncoder(w).Encode(trans)
-	if err != nil {
-		return
-	}
+	_ = json.NewEncoder(w).Encode(General.FormatResponse(200, "transaction created successfully"))
 }
 
 //copy the transaction type to merkletree.Content type
@@ -321,7 +120,7 @@ func getMyBalance(address string) int {
 		}
 
 	}
-	var balance Balance
+	var balance General.Balance
 	balance.Address = address
 	balance.Balance = inBalance - outBalance
 	return balance.Balance
@@ -375,31 +174,20 @@ func pickWinner() {
 
 		//convert into content list so that we can use the merkle tree package
 		var TransContent = copyToContent(trans)
-		tr, err := merkletree.NewTree(TransContent)
-		if err != nil {
-			log.Fatal(err)
-		}
-		id := len(getAllTransFromChain())
+		fmt.Println(TransContent)
+		tr, _ := merkletree.NewTree(TransContent)
 		for i, item := range trans {
 			if item.Hash == "" {
 				trans[i].Hash = General.CalculateTranHash(unifyTransaction(item))
 			}
-			if item.ID == "" {
-				trans[i].ID = strconv.Itoa(id)
-				id++
-			}
-
 		}
 		//BlockBody
 		body = BlockBody{trans}
 
 		//generate the block
-		newBlock, err := generateBlock(oldLastIndex, body, address, tr.MerkleRoot())
+		newBlock, _ := generateBlock(oldLastIndex, body, address, tr.MerkleRoot())
 
-		newBlockJSON, err := json.Marshal(newBlock)
-		if err != nil {
-			log.Fatal(err)
-		}
+		newBlockJSON, _ := json.Marshal(newBlock)
 
 		//check if the trans has already been verified, this may happen because other nodes has completed the verification
 		//before this one does. if not we append the block to the blockchain. otherwise, we discard this process
@@ -416,17 +204,13 @@ func pickWinner() {
 		stdout <- newBlock
 		Blockchain = append(Blockchain, newBlock)
 		updateTransaction(newBlock)
-		/*
-			output, err := json.Marshal(Blockchain)
-			if err != nil {
-				log.Fatal(err)
-			}
-			//remove the transactions that has been verified from the transactions pool
-
-			//broadcast the latest version blockchain
-			broadcastBlockchain(string(output), messageType.LatestBlockChain)
-		*/
-
+		basicBlock := newBlock.BasicBlock
+		basicBlock.Transactions = unifyTransactions(newBlock.Body.Transactions)
+		basicBlock.Signature = General.CalculateHash(General.CurrentTimestamp() + address)
+		General.InsertBlock(basicBlock)
+		for _, items := range basicBlock.Transactions {
+			General.InsertTransaction(items)
+		}
 	}
 
 }
@@ -588,11 +372,19 @@ func unifyTransaction(transaction POWTransaction) General.Transaction {
 	return transactionGeneral
 }
 
-func transTransaction(transaction General.Transaction) POWTransaction {
+func transTransactionToPOW(transaction General.Transaction) POWTransaction {
 	transactionPOW := POWTransaction{}
 	data, _ := json.Marshal(transaction)
 	_ = json.Unmarshal(data, &transactionPOW)
 	return transactionPOW
+}
+
+func transTransactionsToPOW(transactions []General.Transaction) []POWTransaction {
+	var transactionsPOW []POWTransaction
+	for _, item := range transactions {
+		transactionsPOW = append(transactionsPOW, transTransactionToPOW(item))
+	}
+	return transactionsPOW
 }
 
 //handle msg
@@ -604,11 +396,7 @@ func msgHandler(msg message.JSONMessage) {
 
 	case messageType.NewTransaction:
 		var transaction POWTransaction
-		err := json.Unmarshal([]byte(msg.Body), &transaction)
-		if err != nil {
-			log.Fatal(err)
-		}
-		//fmt.Println(transaction)
+		_ = json.Unmarshal([]byte(msg.Body), &transaction)
 		found := FindTransFromBlockchain(transaction)
 		if !found {
 			_, found2 := General.FindTrans(unifyTransactions(transactions), unifyTransaction(transaction))
@@ -651,10 +439,7 @@ func msgHandler(msg message.JSONMessage) {
 
 	case messageType.NewProposedBlock:
 		var block Block
-		err := json.Unmarshal([]byte(msg.Body), &block)
-		if err != nil {
-			log.Fatal(err)
-		}
+		_ = json.Unmarshal([]byte(msg.Body), &block)
 		//verify the block.
 		hash := calculateBlockHash(block)
 		if isHashValid(hash, block.Difficulty) {
@@ -712,7 +497,6 @@ func readConfig() {
 	transIndex = config.TransactionIndex
 	MaxDifficulty = config.MaximumDifficulty
 
-	fmt.Println(config)
 	if config.Strategy == "local" {
 		BootNodeAddress = "localhost:3333"
 		PublicAdd = "localhost"
@@ -729,19 +513,18 @@ func readConfig() {
 
 func setRouter() {
 	r := mux.NewRouter()
-	powGp := POWGP{}
-	r.HandleFunc("/getBlockchainStatus", powGp.GetBlockchainStatus).Methods("GET")
-	r.HandleFunc("/getBlockchain", powGp.GetBlockchain).Methods("GET")
-	r.HandleFunc("/getPartBlockchain", powGp.GetPartBlockchain).Methods("GET")
-	r.HandleFunc("/getTransaction/{address}", powGp.GetUserTransactions).Methods("GET")
-	r.HandleFunc("/sendTransaction", powGp.CreateTransaction).Methods("POST")
-	r.HandleFunc("/getLastestBlock", powGp.GetLatestBlock).Methods("GET")
-	r.HandleFunc("/getBalance/{address}", powGp.GetBalance).Methods("GET")
-	r.HandleFunc("/getAllTransactions", powGp.GetAllTransactions).Methods("GET")
-	r.HandleFunc("/getTransactionByHash", powGp.GetTransByHash).Methods("GET")
-	r.HandleFunc("/getBlockByIndex", powGp.GetBlockByIndex).Methods("GET")
-	r.HandleFunc("/getCurrentTransactions", powGp.GetCurrentTrans).Methods("GET")
+	r.HandleFunc("/getBlockchainStatus", General.GetBlockchainStatus).Methods("GET")
+	r.HandleFunc("/getBlockchain", General.GetBlockchain).Methods("GET")
+	r.HandleFunc("/getPartBlockchain", General.GetPartBlockchain).Methods("GET")
+	r.HandleFunc("/getAllTransactions", General.GetAllTransactions).Methods("GET")
+	r.HandleFunc("/getTransaction/{address}", General.GetUserTransactions).Methods("GET")
+	r.HandleFunc("/getLastestBlock", General.GetLatestBlock).Methods("GET")
+	r.HandleFunc("/getBalance/{address}", General.GetBalance).Methods("GET")
+	r.HandleFunc("/getTransactionByHash", General.GetTransByHash).Methods("GET")
+	r.HandleFunc("/getBlockByIndex", General.GetBlockByIndex).Methods("GET")
+	r.HandleFunc("/getCurrentTransactions", General.GetCurrentTrans).Methods("GET")
 
+	r.HandleFunc("/sendTransaction", CreateTransaction).Methods("POST")
 	r.HandleFunc("/getDeclinedTransactions", getDeclinedTransactions).Methods("GET")
 	r.HandleFunc("/verifyTransaction/{blockIndex}", verifyTransaction).Methods("GET")
 	// Start server
